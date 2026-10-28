@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn | WebPenTest 101</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="index.html"><img src="images/favicon.svg" alt="">WebPenTest 101</a>
+  <nav aria-label="Main"><ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="learning.html" aria-current="page">Learn</a></li>
+    <li><a href="practice.html">Practice</a></li>
+    <li><a href="references.html">References</a></li>
+  </ul></nav>
+</div></header>
+<main>
+<div class="wrap pagehead">
+  <div>
+    <h1>Learn</h1>
+    <p class="lead">What a penetration test is, how testers work through one, and the weaknesses that show up again and again.</p>
+  </div>
+  <img src="images/learn.svg" width="480" height="360" alt="A dotted path with five numbered stops, the last one highlighted">
+</div>
+
+<section class="rule"><div class="wrap split">
+  <h2>What is penetration testing?</h2>
+  <div>
+    <p>A penetration test is an authorised, simulated attack on a system. The tester looks for weaknesses the way a real attacker would, then reports them so the owner can fix them first.</p>
+    <div class="pull"><p>Only test applications you own or have written permission to test. Testing without it is illegal.</p></div>
+  </div>
+</div></section>
+
+<section class="tint" id="methodology"><div class="wrap">
+  <h2>Methodology</h2>
+  <ol class="steps">
+    <li><h3>Planning and scope</h3><p>Agree on what can be tested, when, and how. Get the permission in writing.</p></li>
+    <li><h3>Reconnaissance</h3><p>Collect information about the target: the technology it runs, its pages and parameters, and anything public.</p></li>
+    <li><h3>Scanning and enumeration</h3><p>Map the application and look for known weaknesses, using tools and manual checks together.</p></li>
+    <li><h3>Exploitation</h3><p>Show that a weakness is real by demonstrating its impact safely, without causing damage.</p></li>
+    <li><h3>Reporting</h3><p>Write up each finding: what it is, how serious it is, how to reproduce it, and how to fix it.</p></li>
+  </ol>
+</div></section>
+
+<section id="vulnerabilities"><div class="wrap">
+  <h2>Common vulnerabilities</h2>
+  <p class="lead" style="margin-top:.8rem">Many of these appear in the <a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a>, a regularly updated list of the most critical web application risks.</p>
+  <div style="margin-top:2rem">
+  <details open><summary>Injection</summary><div class="body">
+    <p>The application mixes untrusted input into a query or command, so an attacker can change what it does. A search box that lets <code>' OR '1'='1</code> alter a database query is the classic SQL injection example.</p>
+    <p class="fix"><strong>Fix:</strong> use parameterised queries and validate input on the server.</p></div></details>
+  <details><summary>Cross-site scripting (XSS)</summary><div class="body">
+    <p>The application shows user input on a page without encoding it, so a script can run in another visitor's browser and steal their session or change the page.</p>
+    <p class="fix"><strong>Fix:</strong> encode output for the place it appears, and add a Content Security Policy.</p></div></details>
+  <details><summary>Broken access control</summary><div class="body">
+    <p>Users can reach data or actions they shouldn't. For example, changing <code>/orders/101</code> to <code>/orders/102</code> in the address bar shows someone else's order.</p>
+    <p class="fix"><strong>Fix:</strong> check permissions on the server for every request.</p></div></details>
+  <details><summary>Broken authentication</summary><div class="body">
+    <p>Weak passwords, no lockout after repeated failures, or badly handled sessions let attackers sign in as someone else.</p>
+    <p class="fix"><strong>Fix:</strong> enforce strong passwords, add multi-factor authentication, and protect session tokens.</p></div></details>
+  <details><summary>Security misconfiguration</summary><div class="body">
+    <p>Default accounts, detailed error messages, open admin pages, or missing security headers give attackers an easy way in.</p>
+    <p class="fix"><strong>Fix:</strong> remove what you don't use, harden the defaults, and review settings regularly.</p></div></details>
+  <details><summary>Cross-site request forgery (CSRF)</summary><div class="body">
+    <p>A malicious site tricks a logged-in user's browser into sending an unwanted request to another site they're signed in to.</p>
+    <p class="fix"><strong>Fix:</strong> use anti-CSRF tokens and SameSite cookies.</p></div></details>
+  </div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="wrap">
+  <p>WebPenTest 101 &middot; INFO 250 Web Development, American University of Phnom Penh</p>
+  <p>Only test systems you own or have written permission to test.</p>
+</div></footer>
+</body></html>

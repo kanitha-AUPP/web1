@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-labelledby="t"><title id="t">A signpost with three signs pointing different ways</title>
+<rect width="480" height="360" rx="14" fill="#e3e7f6"/>
+<ellipse cx="240" cy="324" rx="130" ry="14" fill="#cfd5ee"/>
+<rect x="232" y="44" width="16" height="282" fill="#1b2160"/>
+<g font-family="sans-serif" font-weight="700" font-size="19">
+<path d="M130 74H300L334 100L300 126H130z" fill="#c8203a"/><text x="150" y="107" fill="#fff">labs</text>
+<path d="M350 150H180L146 176L180 202H350z" fill="#1b2160" stroke="#1b2160" stroke-width="3"/><text x="200" y="183" fill="#fff">courses</text>
+<path d="M130 226H300L334 252L300 278H130z" fill="#fff" stroke="#1b2160" stroke-width="3"/><text x="150" y="259" fill="#1b2160">guides</text></g>
+</svg>

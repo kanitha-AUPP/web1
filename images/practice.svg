@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-labelledby="t"><title id="t">A quiz sheet with two correct answers, one wrong answer, and a pencil</title>
+<rect width="480" height="360" rx="14" fill="#e3e7f6"/>
+<rect x="90" y="40" width="290" height="270" rx="10" fill="#fff" stroke="#1b2160" stroke-width="3"/>
+<g fill="#1b2160"><rect x="120" y="76" width="30" height="30" rx="5"/><rect x="120" y="144" width="30" height="30" rx="5"/></g>
+<rect x="120" y="212" width="30" height="30" rx="5" fill="#fff" stroke="#c8203a" stroke-width="3"/>
+<g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M127 91l7 7 11-14"/><path d="M127 159l7 7 11-14"/></g>
+<path d="M128 220l14 14M142 220l-14 14" stroke="#c8203a" stroke-width="4" stroke-linecap="round"/>
+<g fill="#cfd5ee"><rect x="175" y="80" width="170" height="9" rx="4"/><rect x="175" y="96" width="110" height="9" rx="4"/><rect x="175" y="148" width="150" height="9" rx="4"/><rect x="175" y="164" width="120" height="9" rx="4"/><rect x="175" y="216" width="160" height="9" rx="4"/><rect x="175" y="232" width="90" height="9" rx="4"/></g>
+<g transform="translate(330 300) rotate(-40)"><rect x="-16" y="-14" width="18" height="28" rx="3" fill="#8f95c9"/><rect x="2" y="-14" width="112" height="28" fill="#c8203a"/><path d="M114 -14L146 0L114 14z" fill="#fff" stroke="#1b2160" stroke-width="3" stroke-linejoin="round"/></g>
+</svg>

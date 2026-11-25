@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broken Access Control | WebPentest101 Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="lab-top">
+  <div class="wrap">
+    <span class="tag">WebPentest101 / Lab 04</span>
+    <span class="mode vuln" id="mode-badge">VULNERABLE MODE</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Broken Access Control</h1>
+  <p class="muted">Difficulty: Intermediate &middot; Goal: open the admin page as a normal user.</p>
+
+  <div class="banner">
+    <strong>Practice lab - safe to run.</strong> Everything here is simulated inside
+    your browser. There is no real server or database, and nothing is sent over the
+    internet. Only practise these techniques here or on sites made for practice.
+  </div>
+
+  <p>You are logged in as a <strong>normal user</strong>. The menu only shows the
+  Dashboard, but the admin page still exists at its own address. In the vulnerable
+  version, the admin page does not check your role.</p>
+
+  <div class="box">
+    <div class="row">
+      <strong>Go to page</strong>
+      <button class="ghost" id="toggle" type="button" onclick="toggleMode()">Switch to fixed version</button>
+    </div>
+    <p class="muted">You are: <strong>normal user</strong> (role: user)</p>
+    <label for="path">Type a page name to visit</label>
+    <input type="text" id="path" value="dashboard">
+    <div class="row">
+      <button type="button" onclick="go()">Visit page</button>
+      <button class="ghost" type="button" onclick="setPath('dashboard')">dashboard</button>
+      <button class="ghost" type="button" onclick="setPath('admin')">admin</button>
+    </div>
+    <div class="output" id="out"></div>
+  </div>
+
+  <details>
+    <summary>Need a hint?</summary>
+    <p>A link being hidden from the menu does not mean the page is protected. Try
+    visiting the page named <code>admin</code> directly.</p>
+  </details>
+  <details>
+    <summary>Show the solution</summary>
+    <p>Type <code>admin</code> and click Visit page (or use the admin button). The admin
+    panel opens, even though you are only a normal user.</p>
+    <p>Switch to the fixed version and try again. Now the page checks your role on the
+    server and blocks you.</p>
+  </details>
+
+  <h2>How this lab is built</h2>
+  <p class="muted">Open <code>app.js</code> to see how it works. The "database" or
+  "server" is just a small JavaScript object, and the vulnerable and fixed versions
+  are two separate functions so you can compare them.</p>
+  <p class="muted">Part of the WebPentest101 final project (INFO 250). For education only.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

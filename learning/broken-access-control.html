@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broken Access Control | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 03</p>
+        <p>Lesson 03</p>
+        <h1>Broken Access Control</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is Broken Access Control?</h2>
+            <p><strong>Authentication</strong> asks "who are you?". <strong>Access control</strong> (also called authorisation) asks "what are you allowed to do?".</p>
+            <p><strong>Broken access control</strong> means the website does not check permissions properly, so a normal user can see or do things that should be limited to other users or to admins. It is number 1 in the OWASP Top 10 (2021).</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>Many websites only hide buttons and links from users who should not use them. But the pages and API requests still exist. If the server does not check permissions on every request, anyone who knows (or guesses) the address can use them.</p>
+            <div class="diagram">
+              <div class="step"><strong>Normal user</strong>visits /admin directly</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Server</strong>only checks &quot;is logged in?&quot;</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Admin page</strong>opens for the wrong user</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>Users can read or change other people's data.</li>
+              <li>Normal users can become admins.</li>
+              <li>Attackers can delete data or change settings for the whole website.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>The admin link is hidden from normal users, but the page itself is not protected:</p>
+            <div class="code-box">
+              <pre><code>https://example.com/admin/users</code></pre>
+            </div>
+            <p>PayloadsAllTheThings also lists request tricks that sometimes skip permission checks, such as changing the HTTP method or sending the same parameter twice:</p>
+            <div class="code-box">
+              <pre><code>POST → PUT
+user_id=hacker_id&amp;user_id=victim_id</code></pre>
+            </div>
+            <p>If the server checks permissions only for <code>POST</code>, a <code>PUT</code> request may get through. If it checks the first <code>user_id</code> but uses the second, the request may act on another user.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#access">Broken Access Control on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Log in as two test users with different roles and compare what each can reach.</li>
+              <li>Try opening admin URLs while logged in as a normal user.</li>
+              <li>Change the HTTP method of a request and see if the result changes.</li>
+              <li>Check whether actions work after you remove or change cookies.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Hiding a button and assuming that is enough protection.</li>
+              <li>Checking permissions in JavaScript in the browser only.</li>
+              <li>Checking permissions on some pages but forgetting the API.</li>
+              <li>Trusting a role sent by the browser, such as <code>role=admin</code>.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Check permissions <strong>on the server for every request</strong>.</li>
+              <li>Deny by default: only allow what each role really needs.</li>
+              <li>Keep the permission check in one shared place in the code so it is not forgotten.</li>
+              <li>Log access-control failures and alert admins about repeated attempts.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/access-control">PortSwigger Academy - Access control</a></li>
+              <li><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP Top 10 - A01 Broken Access Control</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20References">PayloadsAllTheThings - Insecure Direct Object References</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="xss.html">&larr; 02. XSS</a>
+            <a href="idor.html">04. IDOR &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

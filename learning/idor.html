@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDOR | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 04</p>
+        <p>Lesson 04</p>
+        <h1>Insecure Direct Object References (IDOR)</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is IDOR?</h2>
+            <p>An <strong>IDOR</strong> is a common type of broken access control. The website uses an ID from the user (in the URL, a form or an API request) to find a record, but it does not check if that record belongs to the user.</p>
+            <p>Changing the ID, for example from <code>123</code> to <code>124</code>, shows someone else's data.</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>Records in a database usually have simple numbers as IDs. If the server trusts the ID it receives and never asks "does this record belong to the logged-in user?", any user can request any record.</p>
+            <div class="diagram">
+              <div class="step"><strong>User 123</strong>changes the URL to user_id=124</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Server</strong>looks up 124 without checking the owner</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Response</strong>shows user 124&#x27;s profile</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>Private data such as orders, messages and invoices can be read.</li>
+              <li>Sometimes data can also be changed or deleted.</li>
+              <li>Attackers can collect data from every user by counting up the IDs.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>PayloadsAllTheThings uses this example. A user views their own profile with:</p>
+            <div class="code-box">
+              <pre><code>https://example.com/profile?user_id=123</code></pre>
+            </div>
+            <p>If the server does not check ownership, changing the number shows another user's profile:</p>
+            <div class="code-box">
+              <pre><code>https://example.com/profile?user_id=124</code></pre>
+            </div>
+            <p>The only thing that changed is the ID. A safe website would reply "403 Forbidden" because user 123 does not own profile 124.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#idor">IDOR on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Create two test accounts (A and B) on an authorised lab.</li>
+              <li>As user A, note the IDs in URLs and requests.</li>
+              <li>Log in as user B and try to use user A's IDs.</li>
+              <li>Also try IDs in hidden form fields, cookies and JSON request bodies.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Thinking an ID is safe because the user "cannot see" other IDs.</li>
+              <li>Believing long or encoded IDs are a security control. PayloadsAllTheThings shows how even hashed or time-based IDs can be guessed.</li>
+              <li>Checking ownership when reading data but not when updating or deleting it.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Always check that the record belongs to the logged-in user before returning it.</li>
+              <li>Take the user's identity from their session, not from a parameter they can change.</li>
+              <li>Use random, hard-to-guess IDs as an extra layer (not as the only protection).</li>
+              <li>Test every endpoint with two accounts during development.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/access-control/idor">PortSwigger Academy - IDOR</a></li>
+              <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html">OWASP - IDOR Prevention Cheat Sheet</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20References">PayloadsAllTheThings - Insecure Direct Object References</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="broken-access-control.html">&larr; 03. Broken Access Control</a>
+            <a href="authentication.html">05. Authentication &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

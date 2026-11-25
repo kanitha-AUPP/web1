@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflected XSS Search | WebPentest101 Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="lab-top">
+  <div class="wrap">
+    <span class="tag">WebPentest101 / Lab 02</span>
+    <span class="mode vuln" id="mode-badge">VULNERABLE MODE</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Reflected XSS Search</h1>
+  <p class="muted">Difficulty: Easy &middot; Goal: make the page run your own JavaScript.</p>
+
+  <div class="banner">
+    <strong>Practice lab - safe to run.</strong> Everything here is simulated inside
+    your browser. There is no real server or database, and nothing is sent over the
+    internet. Only practise these techniques here or on sites made for practice.
+  </div>
+
+  <p>This search page shows your search text back to you. In the vulnerable version it
+  puts your text straight into the page as HTML, so HTML and JavaScript inside it will
+  run.</p>
+
+  <div class="box">
+    <div class="row">
+      <strong>Search our site</strong>
+      <button class="ghost" id="toggle" type="button" onclick="toggleMode()">Switch to fixed version</button>
+    </div>
+    <label for="term">Search</label>
+    <input type="text" id="term" placeholder="try typing some text, then try HTML">
+    <button type="button" onclick="doSearch()">Search</button>
+
+    <p class="muted" style="margin-top:16px">Results:</p>
+    <div class="output" id="results"></div>
+  </div>
+
+  <details>
+    <summary>Need a hint?</summary>
+    <p>The page writes <em>You searched for: &lt;your text&gt;</em> into the results
+    area. If your text is treated as HTML, an image tag that fails to load can run code
+    through its <code>onerror</code> handler.</p>
+  </details>
+  <details>
+    <summary>Show the solution</summary>
+    <p>Type this into the search box and press Search:</p>
+    <pre><code>&lt;img src=x onerror=alert('XSS')&gt;</code></pre>
+    <p>The image <code>src=x</code> cannot load, so the browser runs the
+    <code>onerror</code> code and a pop-up appears. On a real site, that code could
+    steal cookies or change the page.</p>
+    <p>Switch to the fixed version and try again. The fixed page shows your text as
+    plain words instead of running it.</p>
+  </details>
+
+  <h2>How this lab is built</h2>
+  <p class="muted">Open <code>app.js</code> to see how it works. The "database" or
+  "server" is just a small JavaScript object, and the vulnerable and fixed versions
+  are two separate functions so you can compare them.</p>
+  <p class="muted">Part of the WebPentest101 final project (INFO 250). For education only.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

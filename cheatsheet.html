@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheatsheet | WebPentest101</title>
+  <link rel="icon" href="images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="index.html">home</a>
+        <a href="learning.html">learning</a>
+        <a class="current" href="cheatsheet.html">cheatsheet</a>
+        <a href="lab.html">lab</a>
+        <a href="roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p>Section 02</p>
+        <h1>Cheatsheet / Payloads</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+
+        <input type="radio" name="cat" id="cat-all" class="cat-radio" checked>
+        <input type="radio" name="cat" id="cat-sqli" class="cat-radio">
+        <input type="radio" name="cat" id="cat-xss" class="cat-radio">
+        <input type="radio" name="cat" id="cat-access" class="cat-radio">
+        <input type="radio" name="cat" id="cat-idor" class="cat-radio">
+        <input type="radio" name="cat" id="cat-auth" class="cat-radio">
+        <input type="radio" name="cat" id="cat-misconfig" class="cat-radio">
+        <input type="radio" name="cat" id="cat-traversal" class="cat-radio">
+        <input type="radio" name="cat" id="cat-ssrf" class="cat-radio">
+        <input type="radio" name="cat" id="cat-upload" class="cat-radio">
+        <input type="radio" name="cat" id="cat-cmdi" class="cat-radio">
+
+        <div class="toolbar">
+          <p>Filter by category</p>
+          <div class="filters">
+            <label class="filter-btn" for="cat-all">All</label>
+            <label class="filter-btn" for="cat-sqli">SQL Injection</label>
+            <label class="filter-btn" for="cat-xss">Cross-Site Scripting</label>
+            <label class="filter-btn" for="cat-access">Broken Access Control</label>
+            <label class="filter-btn" for="cat-idor">Insecure Direct Object References</label>
+            <label class="filter-btn" for="cat-auth">Authentication Vulnerabilities</label>
+            <label class="filter-btn" for="cat-misconfig">Security Misconfiguration</label>
+            <label class="filter-btn" for="cat-traversal">Path Traversal</label>
+            <label class="filter-btn" for="cat-ssrf">Server-Side Request Forgery</label>
+            <label class="filter-btn" for="cat-upload">File Upload Vulnerabilities</label>
+            <label class="filter-btn" for="cat-cmdi">Command Injection</label>
+          </div>
+          <p class="small muted">Tip: choose a category to show only its examples. To copy an example, select the text inside the box.</p>
+        </div>
+
+        <div class="cards">
+          <article class="cheat-card sqli" id="sqli">
+            <div class="cheat-head">
+              <h2>SQL Injection (SQLi)</h2>
+              <span class="badge beginner">A03 Injection</span>
+            </div>
+            <p>User input is placed into a database query, so the visitor can change what the query does.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Add an SQL character such as a single quote and watch for errors or changed behaviour. Compare a true condition (1=1) with a false one (1=2).</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Authentication bypass</h3>
+            <div class="code-box">
+              <pre><code>&#x27; OR &#x27;1&#x27;=&#x27;1&#x27;--</code></pre>
+            </div>
+            <p>Makes the WHERE condition always true and comments out the password check.</p>
+          </div>
+          <div class="example">
+            <h3>Logic test in a URL</h3>
+            <div class="code-box">
+              <pre><code>page.asp?id=1&#x27; or 1=1 -- true</code></pre>
+            </div>
+            <p>A classic true/false test to confirm the input reaches the query.</p>
+          </div>
+          <div class="example">
+            <h3>Read data with UNION</h3>
+            <div class="code-box">
+              <pre><code>1&#x27; UNION SELECT username, password FROM users --</code></pre>
+            </div>
+            <p>Adds a second query that returns usernames and passwords.</p>
+          </div>
+          <div class="example">
+            <h3>Time-based (blind) test</h3>
+            <div class="code-box">
+              <pre><code>&#x27; AND SLEEP(5)</code></pre>
+            </div>
+            <p>If the page takes about 5 seconds, the input is running inside the query.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Joining user input into query strings</li>
+              <li>Showing database errors to visitors</li>
+              <li>Trusting browser-side validation only</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Use parameterised queries (prepared statements)</li>
+              <li>Validate input types on the server</li>
+              <li>Limit the database account&#x27;s permissions</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection">PayloadsAllTheThings / SQL Injection</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card xss" id="xss">
+            <div class="cheat-head">
+              <h2>Cross-Site Scripting (XSS)</h2>
+              <span class="badge beginner">A03 Injection</span>
+            </div>
+            <p>User input is shown on a page without encoding, so the browser runs it as HTML or JavaScript.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Enter a unique word and find where it appears in the page source. Check whether &lt; &gt; &quot; &#x27; come back unchanged, then try a harmless script.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Basic test</h3>
+            <div class="code-box">
+              <pre><code>&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</code></pre>
+            </div>
+            <p>If a pop-up appears, the input ran as JavaScript.</p>
+          </div>
+          <div class="example">
+            <h3>Break out of an attribute</h3>
+            <div class="code-box">
+              <pre><code>&quot;&gt;&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</code></pre>
+            </div>
+            <p>The &quot;&gt; closes an existing HTML tag first, then adds a script.</p>
+          </div>
+          <div class="example">
+            <h3>Image error event</h3>
+            <div class="code-box">
+              <pre><code>&lt;img src=x onerror=alert(&#x27;XSS&#x27;);&gt;</code></pre>
+            </div>
+            <p>Works when &lt;script&gt; is blocked; the broken image fires onerror.</p>
+          </div>
+          <div class="example">
+            <h3>SVG tag</h3>
+            <div class="code-box">
+              <pre><code>&lt;svg onload=alert(1)//</code></pre>
+            </div>
+            <p>An HTML5 tag that runs JavaScript when it loads.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Using innerHTML with user input</li>
+              <li>Blocking only the word &lt;script&gt;</li>
+              <li>Trusting data saved earlier in the database</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Encode output for HTML</li>
+              <li>Use textContent in JavaScript</li>
+              <li>Add a Content Security Policy</li>
+              <li>Set cookies as HttpOnly</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection">PayloadsAllTheThings / XSS Injection</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card access" id="access">
+            <div class="cheat-head">
+              <h2>Broken Access Control</h2>
+              <span class="badge beginner">A01 Broken Access Control</span>
+            </div>
+            <p>The website does not check permissions properly, so users can reach actions or data meant for others.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Compare two accounts with different roles. Try admin URLs as a normal user, and change the HTTP method of a request.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Reach a hidden admin page</h3>
+            <div class="code-box">
+              <pre><code>https://example.com/admin/users</code></pre>
+            </div>
+            <p>The link is hidden, but the page itself is not protected on the server.</p>
+          </div>
+          <div class="example">
+            <h3>Change the HTTP method</h3>
+            <div class="code-box">
+              <pre><code>POST → PUT</code></pre>
+            </div>
+            <p>A permission check written only for POST may miss a PUT request.</p>
+          </div>
+          <div class="example">
+            <h3>Parameter pollution</h3>
+            <div class="code-box">
+              <pre><code>user_id=hacker_id&amp;user_id=victim_id</code></pre>
+            </div>
+            <p>Sending an ID twice can confuse which value the server trusts.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Hiding a button instead of checking on the server</li>
+              <li>Checking permissions in the browser only</li>
+              <li>Protecting pages but not the API</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Check permissions on the server for every request</li>
+              <li>Deny by default</li>
+              <li>Keep the access check in one shared place</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20References">PayloadsAllTheThings / Insecure Direct Object References</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card idor" id="idor">
+            <div class="cheat-head">
+              <h2>Insecure Direct Object References (IDOR)</h2>
+              <span class="badge beginner">A01 Broken Access Control</span>
+            </div>
+            <p>The server uses an ID from the user to fetch a record without checking that the record belongs to them.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Note the IDs your account uses, then log in as a second account and try the first account&#x27;s IDs in URLs, forms and JSON.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Change a numeric ID</h3>
+            <div class="code-box">
+              <pre><code>https://example.com/profile?user_id=124</code></pre>
+            </div>
+            <p>If ownership is not checked, this shows another user&#x27;s profile.</p>
+          </div>
+          <div class="example">
+            <h3>Try a wildcard</h3>
+            <div class="code-box">
+              <pre><code>GET /api/users/* HTTP/1.1</code></pre>
+            </div>
+            <p>Some weak APIs return every user when sent a wildcard.</p>
+          </div>
+          <div class="example">
+            <h3>ID inside JSON</h3>
+            <div class="code-box">
+              <pre><code>{&quot;id&quot;:[19]}</code></pre>
+            </div>
+            <p>Wrapping the ID in an array can slip past weak checks (an IDOR tip from the repo).</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Thinking an ID is safe because it is hard to see</li>
+              <li>Believing long or hashed IDs cannot be guessed</li>
+              <li>Checking ownership on read but not on delete</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Check record ownership on every request</li>
+              <li>Use the identity from the session, not a parameter</li>
+              <li>Test every endpoint with two accounts</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20References">PayloadsAllTheThings / Insecure Direct Object References</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card auth" id="auth">
+            <div class="cheat-head">
+              <h2>Authentication Vulnerabilities</h2>
+              <span class="badge beginner">A07 Identification & Authentication Failures</span>
+            </div>
+            <p>Weak login, registration, password-reset or session handling lets an attacker take over an account.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Check for a limit on wrong passwords. Request two reset tokens and compare them. See if the old session still works after logout.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Email parameter pollution</h3>
+            <div class="code-box">
+              <pre><code>email=victim@mail.com&amp;email=hacker@mail.com</code></pre>
+            </div>
+            <p>A weak reset may read the first email but send the link to both.</p>
+          </div>
+          <div class="example">
+            <h3>Email list in JSON</h3>
+            <div class="code-box">
+              <pre><code>{&quot;email&quot;:[&quot;victim@mail.com&quot;,&quot;hacker@mail.com&quot;]}</code></pre>
+            </div>
+            <p>Same idea sent as a JSON array of addresses.</p>
+          </div>
+          <div class="example">
+            <h3>Carbon-copy injection</h3>
+            <div class="code-box">
+              <pre><code>email=victim@mail.com%0A%0Dcc:hacker@mail.com</code></pre>
+            </div>
+            <p>Newline characters try to add a CC header so the attacker also gets the email.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Unlimited login attempts</li>
+              <li>Reset tokens that are predictable or never expire</li>
+              <li>Different messages for wrong username vs wrong password</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Rate-limit logins and add MFA</li>
+              <li>Make reset tokens long, random, single-use and short-lived</li>
+              <li>Create a new session after login and end it on logout</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Account%20Takeover">PayloadsAllTheThings / Account Takeover</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card misconfig" id="misconfig">
+            <div class="cheat-head">
+              <h2>Security Misconfiguration</h2>
+              <span class="badge beginner">A05 Security Misconfiguration</span>
+            </div>
+            <p>The server, framework or cloud service is set up in an unsafe way, for example default passwords or open admin tools.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Look for admin and debug pages at common addresses. Read error pages and response headers. Test CORS with an evil Origin.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Find an exposed admin panel</h3>
+            <div class="code-box">
+              <pre><code>https://example.com/admin</code></pre>
+            </div>
+            <p>Admin panels on predictable URLs may still use default credentials like admin/admin.</p>
+          </div>
+          <div class="example">
+            <h3>Default credentials</h3>
+            <div class="code-box">
+              <pre><code>admin / admin</code></pre>
+            </div>
+            <p>Default logins are public, so they are the first thing attackers try.</p>
+          </div>
+          <div class="example">
+            <h3>CORS trusts any site</h3>
+            <div class="code-box">
+              <pre><code>Origin: https://evil.com
+
+Access-Control-Allow-Origin: https://evil.com
+Access-Control-Allow-Credentials: true</code></pre>
+            </div>
+            <p>The server reflects the attacker&#x27;s origin and allows credentials, so evil.com can read private data.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Leaving default passwords in place</li>
+              <li>Debug mode on in production</li>
+              <li>CORS settings that allow every origin</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Change all default passwords</li>
+              <li>Turn off debug mode and hide errors</li>
+              <li>Allow only trusted origins in CORS</li>
+              <li>Remove unused features</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Management%20Interface">PayloadsAllTheThings / Insecure Management Interface</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card traversal" id="traversal">
+            <div class="cheat-head">
+              <h2>Path Traversal</h2>
+              <span class="badge beginner">A01 Broken Access Control</span>
+            </div>
+            <p>A file name from the user is added to a path, so ../ sequences can read files outside the intended folder.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Find parameters that look like file names (file=, page=, download=). Try ../ and its encoded versions on an authorised lab.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Basic traversal</h3>
+            <div class="code-box">
+              <pre><code>../../../etc/passwd</code></pre>
+            </div>
+            <p>Steps up three folders, then names a readable Linux system file.</p>
+          </div>
+          <div class="example">
+            <h3>URL-encoded</h3>
+            <div class="code-box">
+              <pre><code>%2e%2e%2f%2e%2e%2f%2e%2e/etc/passwd</code></pre>
+            </div>
+            <p>%2e%2e%2f is ../ encoded, to get past filters that block plain ../.</p>
+          </div>
+          <div class="example">
+            <h3>Filter bypass</h3>
+            <div class="code-box">
+              <pre><code>..././</code></pre>
+            </div>
+            <p>Becomes ../ again if the filter removes ../ only once.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Joining user input to a path directly</li>
+              <li>Blocking only the exact text ../</li>
+              <li>Running the server with wide file permissions</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Use an allow list of files or IDs, not raw input</li>
+              <li>Allow only letters and numbers in names</li>
+              <li>Check the final path stays inside the allowed folder</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal">PayloadsAllTheThings / Directory Traversal</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card ssrf" id="ssrf">
+            <div class="cheat-head">
+              <h2>Server-Side Request Forgery (SSRF)</h2>
+              <span class="badge beginner">A10 SSRF</span>
+            </div>
+            <p>A feature fetches a URL chosen by the user, so the server can be made to visit internal systems.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Find features that take a URL (image import, webhooks, link preview). On a lab, point them at an address you control, then at localhost.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Cloud metadata</h3>
+            <div class="code-box">
+              <pre><code>http://169.254.169.254/latest/meta-data/</code></pre>
+            </div>
+            <p>A special address reachable only from inside a cloud server; may expose secrets.</p>
+          </div>
+          <div class="example">
+            <h3>Reach localhost</h3>
+            <div class="code-box">
+              <pre><code>http://127.0.0.1:80</code></pre>
+            </div>
+            <p>Tests whether the server can be made to call itself and reach internal pages.</p>
+          </div>
+          <div class="example">
+            <h3>Read a local file</h3>
+            <div class="code-box">
+              <pre><code>file:///etc/passwd</code></pre>
+            </div>
+            <p>The file:// scheme turns an SSRF into a file read on the server.</p>
+          </div>
+          <div class="example">
+            <h3>Encoded IP bypass</h3>
+            <div class="code-box">
+              <pre><code>http://2130706433/</code></pre>
+            </div>
+            <p>A decimal way of writing 127.0.0.1 that can get past a block list.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Fetching any URL the user sends</li>
+              <li>Block lists that miss alternate IP formats</li>
+              <li>Following redirects to internal addresses</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Allow only a fixed list of domains</li>
+              <li>Block private IP ranges after resolving</li>
+              <li>Disable redirects; allow only http and https</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery">PayloadsAllTheThings / Server Side Request Forgery</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card upload" id="upload">
+            <div class="cheat-head">
+              <h2>File Upload Vulnerabilities</h2>
+              <span class="badge beginner">A05 Security Misconfiguration</span>
+            </div>
+            <p>An upload form accepts dangerous files, which the server may then run as code or serve to other users.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Find every upload form. On a lab, upload a harmless file with different extensions and content types and see which are accepted.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Double extension</h3>
+            <div class="code-box">
+              <pre><code>shell.jpg.php</code></pre>
+            </div>
+            <p>Looks like an image to a weak filter but ends in .php so the server runs it.</p>
+          </div>
+          <div class="example">
+            <h3>Case and null-byte tricks</h3>
+            <div class="code-box">
+              <pre><code>.pHp
+.php%00.jpg</code></pre>
+            </div>
+            <p>Mixed case or a null byte can confuse a filter that checks the extension.</p>
+          </div>
+          <div class="example">
+            <h3>Fake the content type</h3>
+            <div class="code-box">
+              <pre><code>Content-Type: image/gif</code></pre>
+            </div>
+            <p>The request claims the file is an image; a server that trusts this header is fooled.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Checking only the extension or Content-Type</li>
+              <li>Using a block list instead of an allow list</li>
+              <li>Keeping the user&#x27;s original file name</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Allow only the file types you need</li>
+              <li>Rename every file to a random server name</li>
+              <li>Store uploads outside the web root</li>
+              <li>Limit size and check real content</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files">PayloadsAllTheThings / Upload Insecure Files</a> (MIT License)</p>
+          </article>
+          <article class="cheat-card cmdi" id="cmdi">
+            <div class="cheat-head">
+              <h2>Command Injection</h2>
+              <span class="badge beginner">A03 Injection</span>
+            </div>
+            <p>User input is placed into an operating-system command, so special characters let the attacker run their own commands.</p>
+            <p class="muted"><strong>Testing concepts:</strong> Find features that use system tools (ping, DNS lookup, file convert). On a lab, add a separator and a harmless command, or a time delay.</p>
+
+            <h3>Examples</h3>
+          <div class="example">
+            <h3>Chain a command with ;</h3>
+            <div class="code-box">
+              <pre><code>8.8.8.8; cat /etc/passwd</code></pre>
+            </div>
+            <p>The ; ends the ping command and runs cat /etc/passwd after it.</p>
+          </div>
+          <div class="example">
+            <h3>Command separators</h3>
+            <div class="code-box">
+              <pre><code>command1; command2
+command1 &amp;&amp; command2
+command1 | command2</code></pre>
+            </div>
+            <p>Different shell characters that join or pipe commands together.</p>
+          </div>
+          <div class="example">
+            <h3>Time-based test</h3>
+            <div class="code-box">
+              <pre><code>; sleep 5</code></pre>
+            </div>
+            <p>If the response is about 5 seconds slower, the command ran even with no output shown.</p>
+          </div>
+
+            <div class="two-lists">
+              <div>
+                <h3>Common mistakes</h3>
+                <ul>
+              <li>Passing input to system() or exec()</li>
+              <li>Blocking only a few characters</li>
+              <li>Running the web server as administrator</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Prevention</h3>
+                <ul>
+              <li>Avoid system commands; use built-in functions</li>
+              <li>Use an allow list for the input</li>
+              <li>Pass arguments separately, not as one string</li>
+              <li>Run with the lowest permissions</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="source">Source: <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection">PayloadsAllTheThings / Command Injection</a> (MIT License)</p>
+          </article>
+        </div>
+
+        <h2 style="margin-top:50px">Quick reference table</h2>
+        <p class="muted">Each vulnerability and the OWASP Top 10 (2021) group it belongs to.</p>
+        <div class="table-container">
+          <table>
+            <caption>Vulnerabilities covered on WebPentest101 and their OWASP Top 10 group</caption>
+            <thead>
+              <tr>
+                <th scope="col">Vulnerability</th>
+                <th scope="col">OWASP Top 10 (2021)</th>
+                <th scope="col">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>SQL Injection (SQLi)</td>
+              <td>A03 Injection</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Cross-Site Scripting (XSS)</td>
+              <td>A03 Injection</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Broken Access Control</td>
+              <td>A01 Broken Access Control</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20References">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Insecure Direct Object References (IDOR)</td>
+              <td>A01 Broken Access Control</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Direct%20Object%20References">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Authentication Vulnerabilities</td>
+              <td>A07 Identification & Authentication Failures</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Account%20Takeover">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Security Misconfiguration</td>
+              <td>A05 Security Misconfiguration</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Management%20Interface">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Path Traversal</td>
+              <td>A01 Broken Access Control</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Directory%20Traversal">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Server-Side Request Forgery (SSRF)</td>
+              <td>A10 SSRF</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>File Upload Vulnerabilities</td>
+              <td>A05 Security Misconfiguration</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files">Documentation</a></td>
+            </tr>
+            <tr>
+              <td>Command Injection</td>
+              <td>A03 Injection</td>
+              <td><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection">Documentation</a></td>
+            </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">All references point to the original PayloadsAllTheThings documentation (MIT License).</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="js/theme.js"></script>
+</body>
+</html>

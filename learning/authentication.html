@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 05</p>
+        <p>Lesson 05</p>
+        <h1>Authentication Vulnerabilities</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is Authentication?</h2>
+            <p><strong>Authentication</strong> is how a website checks who you are, usually with a username and password.</p>
+            <p><strong>Authentication vulnerabilities</strong> are weaknesses in login, registration, "forgot password" or session handling that let someone log in as another user. This is often called <strong>account takeover</strong>.</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>Attackers look for the weakest step in the login process. It might be no limit on password guesses, a password reset link that can be predicted, or a reset email that can be sent to the attacker instead of the real user.</p>
+            <div class="diagram">
+              <div class="step"><strong>Attacker</strong>requests a password reset for the victim</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Website</strong>sends the reset link to the wrong place</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Attacker</strong>sets a new password</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>The attacker becomes the victim and can do anything the victim can.</li>
+              <li>Admin accounts give control of the whole website.</li>
+              <li>Users often reuse passwords, so one leak can affect other websites too.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>PayloadsAllTheThings lists tests for the "forgot password" form. For example, sending two email addresses in the same request (parameter pollution):</p>
+            <div class="code-box">
+              <pre><code>email=victim@mail.com&amp;email=hacker@mail.com</code></pre>
+            </div>
+            <p>or sending them as a list in a JSON request:</p>
+            <div class="code-box">
+              <pre><code>{&quot;email&quot;:[&quot;victim@mail.com&quot;,&quot;hacker@mail.com&quot;]}</code></pre>
+            </div>
+            <p>A badly written reset function might look up the victim's account using the first email but send the reset link to every address in the request, including the attacker's.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#auth">Authentication on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Check if there is a limit on wrong password attempts.</li>
+              <li>Request two reset tokens and compare them. Are they random? Do they expire?</li>
+              <li>Check whether error messages reveal if a username exists.</li>
+              <li>Log out and check whether the old session cookie still works.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Allowing unlimited login attempts.</li>
+              <li>Reset tokens that are short, predictable or never expire.</li>
+              <li>Different error messages for "wrong username" and "wrong password".</li>
+              <li>Not ending the session on logout or after a password change.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Limit login attempts and add multi-factor authentication (MFA).</li>
+              <li>Make reset tokens long, random, single-use and short-lived.</li>
+              <li>Show the same message for every failed login.</li>
+              <li>Create a new session ID after login, and end it on logout.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/authentication">PortSwigger Academy - Authentication</a></li>
+              <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html">OWASP - Authentication Cheat Sheet</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Account%20Takeover">PayloadsAllTheThings - Account Takeover</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="idor.html">&larr; 04. IDOR</a>
+            <a href="security-misconfiguration.html">06. Security Misconfiguration &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

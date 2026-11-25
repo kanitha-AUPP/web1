@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap &amp; Resources | WebPentest101</title>
+  <link rel="icon" href="images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="index.html">home</a>
+        <a href="learning.html">learning</a>
+        <a href="cheatsheet.html">cheatsheet</a>
+        <a href="lab.html">lab</a>
+        <a class="current" href="roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+
+
+    <div class="page-header">
+      <div class="container">
+        <p>Section 04</p>
+        <h1>Roadmap &amp; Resources</h1>
+        <p class="lead">A four-stage plan for learning web security, and the best free places to keep going after WebPentest101.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>The learning roadmap</h2>
+          <p>Work through the stages in order. You do not need to finish everything in a stage before you start the next, but the earlier stages make the later ones much easier.</p>
+        </div>
+
+        <ol class="roadmap">
+          <li class="stage">
+            <div class="stage-label">Stage 1</div>
+            <div>
+              <h3>Fundamentals</h3>
+              <p class="muted">Understand how the web works before you try to break it.</p>
+              <ul>
+                <li>Basic networking (IP addresses, ports, DNS)</li>
+                <li>Linux fundamentals and the command line</li>
+                <li>How HTTP and HTTPS work</li>
+                <li>HTML, CSS and JavaScript</li>
+                <li>How websites and servers fit together</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="stage">
+            <div class="stage-label">Stage 2</div>
+            <div>
+              <h3>Web security fundamentals</h3>
+              <p class="muted">Learn the common problems and the main tools.</p>
+              <ul>
+                <li>The OWASP Top 10</li>
+                <li>Common web vulnerabilities (our Learning section)</li>
+                <li>Burp Suite basics</li>
+                <li>Reading HTTP requests and responses</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="stage">
+            <div class="stage-label">Stage 3</div>
+            <div>
+              <h3>Hands-on practice</h3>
+              <p class="muted">Apply what you know in safe, legal environments.</p>
+              <ul>
+                <li>Beginner web security labs</li>
+                <li>Identifying vulnerabilities yourself</li>
+                <li>Understanding a testing workflow</li>
+                <li>Writing simple vulnerability reports</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="stage">
+            <div class="stage-label">Stage 4</div>
+            <div>
+              <h3>Advanced learning</h3>
+              <p class="muted">Go deeper with full platforms and courses (see the resources below).</p>
+              <ul>
+                <li>Structured web-security courses</li>
+                <li>Guided and then unguided machines</li>
+                <li>Capture-the-flag (CTF) events</li>
+                <li>Specialising in an area you enjoy</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="section-title">
+          <h2>Resources</h2>
+          <p>Free (or free to start) platforms we recommend. Each card explains what beginners can learn there.</p>
+        </div>
+
+        <div class="card-grid two">
+          <article class="card resource-card">
+            <h3>PortSwigger Web Security Academy</h3>
+            <dl>
+              <dt>What it is</dt>
+              <dd>Free lessons and hands-on labs from the team that makes Burp Suite.</dd>
+              <dt>What beginners can learn</dt>
+              <dd>Each vulnerability step by step, with a lab to try straight away in the browser.</dd>
+            </dl>
+            <a class="card-link" href="https://portswigger.net/web-security">portswigger.net/web-security &rarr;</a>
+          </article>
+
+          <article class="card resource-card">
+            <h3>TryHackMe</h3>
+            <dl>
+              <dt>What it is</dt>
+              <dd>Guided "rooms" with a practice machine that runs in your browser.</dd>
+              <dt>What beginners can learn</dt>
+              <dd>The basics of hacking and defence with lots of hand-holding, so no lab setup is needed.</dd>
+            </dl>
+            <a class="card-link" href="https://tryhackme.com">tryhackme.com &rarr;</a>
+          </article>
+
+          <article class="card resource-card">
+            <h3>Hack The Box</h3>
+            <dl>
+              <dt>What it is</dt>
+              <dd>Practice machines and challenges, from beginner (Starting Point) to advanced.</dd>
+              <dt>What beginners can learn</dt>
+              <dd>How to find and use vulnerabilities on realistic targets once you know the basics.</dd>
+            </dl>
+            <a class="card-link" href="https://www.hackthebox.com">hackthebox.com &rarr;</a>
+          </article>
+
+          <article class="card resource-card">
+            <h3>OWASP</h3>
+            <dl>
+              <dt>What it is</dt>
+              <dd>A non-profit that publishes the Top 10 and the Web Security Testing Guide.</dd>
+              <dt>What beginners can learn</dt>
+              <dd>What each risk is and how testers check for it. A reference to return to often.</dd>
+            </dl>
+            <a class="card-link" href="https://owasp.org">owasp.org &rarr;</a>
+          </article>
+
+          <article class="card resource-card">
+            <h3>OWASP Juice Shop</h3>
+            <dl>
+              <dt>What it is</dt>
+              <dd>A free, deliberately vulnerable web shop that you run on your own computer.</dd>
+              <dt>What beginners can learn</dt>
+              <dd>Finding many different bugs in one realistic app, with built-in challenges and hints.</dd>
+            </dl>
+            <a class="card-link" href="https://owasp.org/www-project-juice-shop/">owasp.org/www-project-juice-shop &rarr;</a>
+          </article>
+
+          <article class="card resource-card">
+            <h3>PayloadsAllTheThings</h3>
+            <dl>
+              <dt>What it is</dt>
+              <dd>An open-source collection of testing techniques for many vulnerabilities (MIT License).</dd>
+              <dt>What beginners can learn</dt>
+              <dd>Real examples for each vulnerability. It is the main source for our Cheatsheet.</dd>
+            </dl>
+            <a class="card-link" href="https://github.com/swisskyrepo/PayloadsAllTheThings">github.com/swisskyrepo/PayloadsAllTheThings &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+  </footer>
+    </main>
+  </div>
+  <script src="js/theme.js"></script>
+</body>
+</html>

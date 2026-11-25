@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice | WebPenTest 101</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="index.html"><img src="images/favicon.svg" alt="">WebPenTest 101</a>
+  <nav aria-label="Main"><ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="learning.html">Learn</a></li>
+    <li><a href="practice.html" aria-current="page">Practice</a></li>
+    <li><a href="references.html">References</a></li>
+  </ul></nav>
+</div></header>
+<main>
+<div class="wrap pagehead">
+  <div>
+    <h1>Practice</h1>
+    <p class="lead">Five questions on what you just read. Choose an answer for each, then check your score.</p>
+  </div>
+  <img src="images/practice.svg" width="480" height="360" alt="A quiz sheet with two ticked answers, one crossed out, and a pencil">
+</div>
+<section class="rule" style="padding-top:2rem"><div class="wrap" style="max-width:780px;margin-left:max(5%,calc((100% - 1120px)/2))">
+  <div id="quiz"></div>
+  <div class="actions">
+    <button class="btn" id="check" type="button">Check answers</button>
+    <button class="btn plain" id="reset" type="button">Try again</button>
+    <p id="result" role="status" aria-live="polite"></p>
+  </div>
+</div></section>
+</main>
+<script src="js/quiz.js"></script>
+<footer class="site-footer"><div class="wrap">
+  <p>WebPenTest 101 &middot; INFO 250 Web Development, American University of Phnom Penh</p>
+  <p>Only test systems you own or have written permission to test.</p>
+</div></footer>
+</body></html>

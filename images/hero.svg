@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 400" role="img" aria-labelledby="t"><title id="t">A browser window with a form field being tested and a magnifying glass over it</title>
+<rect width="480" height="400" rx="14" fill="#e3e7f6"/>
+<g stroke="#cfd5ee" stroke-width="2"><path d="M0 340H480M0 360H480M0 380H480"/></g>
+<rect x="50" y="56" width="340" height="256" rx="8" fill="#fff" stroke="#1b2160" stroke-width="3"/>
+<path d="M50 64a8 8 0 0 1 8-8h324a8 8 0 0 1 8 8v30H50z" fill="#1b2160"/>
+<circle cx="70" cy="75" r="5" fill="#c8203a"/><circle cx="88" cy="75" r="5" fill="#8f95c9"/><circle cx="106" cy="75" r="5" fill="#8f95c9"/>
+<rect x="130" y="65" width="236" height="20" rx="10" fill="#fff" fill-opacity=".16"/>
+<rect x="76" y="116" width="150" height="10" rx="5" fill="#cfd5ee"/><rect x="76" y="136" width="230" height="10" rx="5" fill="#e3e7f6"/>
+<rect x="76" y="168" width="288" height="38" rx="5" fill="#f4f5fb" stroke="#1b2160" stroke-width="2"/>
+<text x="90" y="192" font-family="monospace" font-size="15" fill="#c8203a">id=1' OR '1'='1</text>
+<rect x="76" y="222" width="86" height="28" rx="4" fill="#1b2160"/>
+<rect x="88" y="233" width="62" height="6" rx="3" fill="#fff"/>
+<rect x="76" y="268" width="200" height="8" rx="4" fill="#e3e7f6"/><rect x="76" y="284" width="140" height="8" rx="4" fill="#e3e7f6"/>
+<circle cx="362" cy="262" r="54" fill="#fff" fill-opacity=".6" stroke="#c8203a" stroke-width="8"/>
+<path d="M401 301l42 44" stroke="#c8203a" stroke-width="15" stroke-linecap="round"/>
+<path d="M340 262h44M362 240v44" stroke="#1b2160" stroke-width="5" stroke-linecap="round" opacity=".0"/>
+<path d="M336 250l18 18 34-36" fill="none" stroke="#1b2160" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+<text x="362" y="274" text-anchor="middle" font-family="monospace" font-weight="700" font-size="42" fill="#1b2160">'</text>
+</svg>

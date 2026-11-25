@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="WebPentest101 terminal logo">
   <!-- terminal window -->
   <rect x="2" y="2" width="28" height="28" rx="3" fill="#000000" stroke="#b5e853" stroke-width="1.6"/>
@@ -11,3 +12,6 @@
   <polyline points="7,15 11,19 7,23" fill="none" stroke="#b5e853" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
   <line x1="14" y1="23" x2="22" y2="23" stroke="#b5e853" stroke-width="2.3" stroke-linecap="round"/>
 </svg>
+=======
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#1b2160"/><path d="M16 22l14 10-14 10" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 44h16" stroke="#c8203a" stroke-width="6" stroke-linecap="round"/></svg>
+>>>>>>> origin/main

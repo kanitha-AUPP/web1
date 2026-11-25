@@ -1,3 +1,95 @@
+<<<<<<< HEAD
+/* =========================================================
+   style.css - WebPentest101
+   Design: the "Hacker Plus" theme by Rinish Sam (@CaptainIRS),
+   MIT License. Classic hacker look: near-black background,
+   lime-green (#b5e853) accents, all-monospace text, a fixed
+   left sidebar, dashed-green rules and flat terminal boxes.
+   One external stylesheet linked to every page.
+
+   Palette:
+     #151515  page background (very dark grey)
+     #000000  sidebar + code / box background
+     #eaeaea  main text
+     #b5e853  hacker green (headings, accents, prompts)
+     #63c0f5  links (blue)
+     #aa759f  inline code (purple)
+     #f4bf75  amber (warnings, "easy")
+     #ac4142  red (danger, "intermediate")
+     #888     muted text
+   ========================================================= */
+
+@import url("typography.css");
+
+:root {
+  --bg: #151515;
+  --panel: #000000;
+  --fg: #eaeaea;
+  --green: #b5e853;
+  --green-soft: rgba(180, 232, 83, 0.52);
+  --green-faint: rgba(181, 232, 83, 0.08);
+  --link: #63c0f5;
+  --purple: #aa759f;
+  --amber: #f4bf75;
+  --red: #ac4142;
+  --muted: #888888;
+  --muted2: #666666;
+  --border: rgba(255, 255, 255, 0.15);
+  --side: 260px;
+}
+
+/* -----------------------------------------------------------
+   Light mode. JavaScript (js/theme.js) adds the class "light"
+   to <body>; these rules redefine the colours for that case.
+   ----------------------------------------------------------- */
+body.light {
+  --bg: #ecece4;
+  --panel: #ffffff;
+  --fg: #1a1a1a;
+  --green: #4a7a10;
+  --green-soft: rgba(74, 122, 16, 0.5);
+  --green-faint: rgba(74, 122, 16, 0.1);
+  --link: #0a5fc2;
+  --purple: #8a2f7b;
+  --amber: #9a5b00;
+  --red: #b0302e;
+  --muted: #555555;
+  --muted2: #777777;
+  --border: rgba(0, 0, 0, 0.2);
+  background: var(--bg);
+}
+
+/* a few places use a fixed dark colour; make them light too */
+body.light .terminal,
+body.light .code-box pre,
+body.light code {
+  background: #f3f3ea;
+}
+
+body.light input[type="text"],
+body.light input[type="email"],
+body.light input[type="search"],
+body.light select,
+body.light textarea {
+  background: #ffffff;
+  color: var(--fg);
+}
+
+body.light .btn {
+  background: linear-gradient(to bottom, #fafaf5, #e9e9df);
+}
+
+body.light .btn:hover {
+  background: linear-gradient(to bottom, #ffffff, #e2e2d6);
+}
+
+body.light .site-nav a {
+  color: #333333;
+}
+
+body.light a:hover {
+  color: #084a95;
+=======
 :root {
   --paper: #050912;
   --ink: #edf4ff;
@@ -14,11 +106,1109 @@
 /* Scale all rem-based dimensions with the screen width. */
 html {
   font-size: clamp(16px, 0.55vw + 11px, 22px);
+>>>>>>> origin/main
 }
 
 * {
   box-sizing: border-box;
 }
+<<<<<<< HEAD
+
+body {
+  margin: 0;
+  background: var(--bg) url("../images/hacker-bkg.png") repeat 0 0;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+/* bullets use the theme's bullet image, with a green fallback marker */
+ul {
+  list-style: none;
+  padding-left: 1.4rem;
+}
+
+ul li {
+  position: relative;
+}
+
+ul li::before {
+  content: ">";
+  position: absolute;
+  left: -1.2rem;
+  color: var(--green);
+}
+
+ol {
+  padding-left: 1.5rem;
+}
+
+ol li::marker {
+  color: var(--green);
+}
+
+li {
+  margin-bottom: 0.4rem;
+  line-height: 1.5;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  border-bottom: 1px dashed var(--green);
+  margin: 2rem 0;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--link);
+  text-shadow: 0 0 5px rgba(104, 182, 255, 0.4);
+}
+
+a:hover {
+  color: #9bd4fb;
+}
+
+a:visited {
+  color: #8aa9d8;
+}
+
+a:active {
+  color: var(--green);
+}
+
+/* ---------- Headings ---------- */
+h1,
+h2,
+h3 {
+  color: var(--green);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.12),
+    0 0 10px rgba(181, 232, 83, 0.1);
+}
+
+h1 {
+  border-bottom: 1px dashed var(--green);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+h4 {
+  color: var(--amber);
+}
+
+/* ===========================================================
+   Layout: fixed left sidebar + content on the right
+   =========================================================== */
+.layout {
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--side);
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 26px 20px;
+}
+
+.logo-img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 700;
+  border: 0;
+  margin: 0 0 6px;
+  padding: 0;
+  letter-spacing: -1px;
+}
+
+.brand a {
+  color: var(--green);
+  text-decoration: none;
+  text-shadow: 0 0 6px rgba(181, 232, 83, 0.2);
+}
+
+/* the "./" prompt in front of the site name - a theme signature */
+.brand a::before {
+  content: "./";
+  color: var(--green);
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 26px;
+}
+
+.site-nav a {
+  display: block;
+  padding: 5px 6px;
+  color: #cfcfcf;
+  text-decoration: none;
+  text-shadow: none;
+  border-left: 2px solid transparent;
+}
+
+/* "~/" prompt in front of every nav link - another theme signature */
+.site-nav a::before {
+  content: "~/";
+  color: var(--green);
+  margin-right: 2px;
+}
+
+.site-nav a:hover {
+  color: var(--green);
+  background: var(--green-faint);
+}
+
+.site-nav a.current {
+  color: var(--green);
+  border-left: 2px solid var(--green);
+  background: var(--green-faint);
+}
+
+.site-nav a.current::after {
+  content: " _";
+  color: var(--green);
+}
+
+/* dark/light mode toggle button in the sidebar */
+.theme-toggle {
+  margin-top: 18px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--green-soft);
+  border-radius: 2px;
+  color: var(--green);
+  font-family: "JetBrains Mono", Monaco, Consolas, monospace;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.theme-toggle::before {
+  content: "> ";
+}
+
+.theme-toggle:hover {
+  border-color: var(--green);
+}
+
+.content {
+  margin-left: var(--side);
+  padding: 34px 44px 60px;
+}
+
+/* content stays a comfortable reading width, left-aligned like the theme */
+.content .container {
+  width: 100%;
+  max-width: 1040px;
+}
+
+/* skip link for keyboard users */
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: 10px;
+  top: 10px;
+  z-index: 50;
+  background: #000;
+  padding: 8px 12px;
+  border: 1px solid var(--green);
+}
+
+/* ---------- Sections ---------- */
+section {
+  margin-bottom: 38px;
+}
+
+.section-alt {
+  border-top: 1px dashed var(--green-soft);
+  border-bottom: 1px dashed var(--green-soft);
+  padding: 28px 0;
+}
+
+.section-title {
+  margin-bottom: 1.4rem;
+  max-width: 760px;
+}
+
+.section-title p {
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- Buttons (Hacker Plus style) ---------- */
+.btn {
+  display: inline-block;
+  padding: 8px 18px;
+  background: linear-gradient(
+    to bottom,
+    rgba(40, 40, 40, 0.3),
+    rgba(35, 35, 35, 0.3) 50%,
+    rgba(10, 10, 10, 0.3) 50%,
+    rgba(0, 0, 0, 0.3)
+  );
+  border: 1px solid var(--green-soft);
+  border-radius: 2px;
+  color: var(--green);
+  font-family: "JetBrains Mono", Monaco, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.btn::before {
+  content: "$ ";
+  color: var(--green);
+}
+
+.btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: linear-gradient(
+    to bottom,
+    rgba(40, 40, 40, 0.6),
+    rgba(35, 35, 35, 0.6) 50%,
+    rgba(10, 10, 10, 0.85) 50%,
+    rgba(0, 0, 0, 0.85)
+  );
+}
+
+.btn:active {
+  border-width: 2px;
+}
+
+.btn-outline {
+  background: transparent;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1.4rem;
+}
+
+/* ---------- Hero ---------- */
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 30px;
+  border-bottom: 0;
+}
+
+.hero h1 span {
+  color: var(--fg);
+}
+
+.hero .lead {
+  color: var(--muted);
+}
+
+/* ---------- Terminal box ---------- */
+.terminal {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.terminal-bar {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-bar span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #333;
+}
+
+.terminal pre {
+  margin: 0;
+  padding: 16px;
+  color: var(--green);
+  font-size: 13.5px;
+  white-space: pre-wrap;
+  background: transparent;
+  border: 0;
+}
+
+.terminal .prompt {
+  color: var(--amber);
+}
+
+.terminal .comment {
+  color: var(--muted);
+}
+
+/* ---------- Page header ---------- */
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header .lead {
+  color: var(--muted);
+  max-width: 760px;
+}
+
+.breadcrumb {
+  font-size: 12.5px;
+  margin-bottom: 0.8rem;
+  color: var(--muted);
+}
+
+/* ---------- Cards / grids ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card-grid.four {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.card:hover {
+  border-color: var(--green-soft);
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.card .card-link {
+  margin-top: auto;
+  color: var(--green);
+  font-weight: 500;
+}
+
+.card-number {
+  color: var(--green);
+  font-size: 12.5px;
+  margin-bottom: 0.4rem;
+}
+
+.card-number::before {
+  content: "[";
+}
+
+.card-number::after {
+  content: "]";
+}
+
+a.card {
+  text-decoration: none;
+}
+
+a.card h3 {
+  color: var(--green);
+}
+
+a.card:hover {
+  border-color: var(--green);
+}
+
+/* ---------- Two column layout ---------- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* ---------- Video ---------- */
+.video-wrapper iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+/* ---------- Badges / tags ---------- */
+.badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--green-soft);
+  border-radius: 2px;
+  color: var(--green);
+  font-size: 12px;
+}
+
+.badge::before {
+  content: "#";
+}
+
+.badge.beginner {
+  color: var(--green);
+  border-color: var(--green-soft);
+}
+
+.badge.easy {
+  color: var(--amber);
+  border-color: rgba(244, 191, 117, 0.5);
+}
+
+.badge.intermediate {
+  color: var(--red);
+  border-color: rgba(172, 65, 66, 0.6);
+}
+
+/* ---------- Code ---------- */
+code {
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--purple);
+  padding: 0 3px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 0.92em;
+}
+
+.code-box {
+  margin: 0.8rem 0;
+}
+
+.code-box pre {
+  margin: 0;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow-x: auto;
+  color: var(--green);
+}
+
+.code-box pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font-size: 13.5px;
+}
+
+/* ---------- Learning lesson pages ---------- */
+.lesson-toc {
+  padding: 16px 20px;
+  margin-bottom: 30px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.lesson-toc h2 {
+  font-size: 14px;
+  margin-bottom: 0.6rem;
+}
+
+.lesson-toc ol {
+  margin: 0;
+  columns: 2;
+  font-size: 13px;
+}
+
+.lesson-toc a {
+  text-decoration: none;
+}
+
+.lesson article {
+  max-width: 780px;
+}
+
+.lesson article section {
+  margin-bottom: 34px;
+}
+
+.lesson article h2 {
+  font-size: 20px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--green-soft);
+}
+
+.lesson-nav a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+/* simple flow diagram */
+.diagram {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1.2rem 0;
+}
+
+.diagram .step {
+  flex: 1;
+  min-width: 130px;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.diagram .step strong {
+  display: block;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+
+.diagram .step.bad {
+  border-color: rgba(172, 65, 66, 0.6);
+}
+
+.diagram .step.bad strong {
+  color: var(--red);
+}
+
+.diagram .arrow {
+  align-self: center;
+  color: var(--green);
+}
+
+/* ---------- Cheatsheet ---------- */
+.toolbar {
+  margin-bottom: 26px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* filter buttons are <label>s tied to hidden radios (CSS only, no JS) */
+.filter-btn {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--green-soft);
+  border-radius: 2px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 12.5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-btn::before {
+  content: "[";
+  color: var(--green);
+}
+
+.filter-btn::after {
+  content: "]";
+  color: var(--green);
+}
+
+.filter-btn:hover {
+  color: var(--green);
+}
+
+.cat-radio {
+  position: absolute;
+  left: -9999px;
+}
+
+/* highlight the chosen filter */
+#cat-all:checked ~ .toolbar label[for="cat-all"],
+#cat-sqli:checked ~ .toolbar label[for="cat-sqli"],
+#cat-xss:checked ~ .toolbar label[for="cat-xss"],
+#cat-access:checked ~ .toolbar label[for="cat-access"],
+#cat-idor:checked ~ .toolbar label[for="cat-idor"],
+#cat-auth:checked ~ .toolbar label[for="cat-auth"],
+#cat-misconfig:checked ~ .toolbar label[for="cat-misconfig"],
+#cat-traversal:checked ~ .toolbar label[for="cat-traversal"],
+#cat-ssrf:checked ~ .toolbar label[for="cat-ssrf"],
+#cat-upload:checked ~ .toolbar label[for="cat-upload"],
+#cat-cmdi:checked ~ .toolbar label[for="cat-cmdi"] {
+  background: var(--green);
+  color: #000;
+  font-weight: 700;
+}
+
+/* hide every card when a single category is chosen... */
+#cat-sqli:checked ~ .cards .cheat-card,
+#cat-xss:checked ~ .cards .cheat-card,
+#cat-access:checked ~ .cards .cheat-card,
+#cat-idor:checked ~ .cards .cheat-card,
+#cat-auth:checked ~ .cards .cheat-card,
+#cat-misconfig:checked ~ .cards .cheat-card,
+#cat-traversal:checked ~ .cards .cheat-card,
+#cat-ssrf:checked ~ .cards .cheat-card,
+#cat-upload:checked ~ .cards .cheat-card,
+#cat-cmdi:checked ~ .cards .cheat-card {
+  display: none;
+}
+
+/* ...then show only the matching one */
+#cat-sqli:checked ~ .cards .cheat-card.sqli,
+#cat-xss:checked ~ .cards .cheat-card.xss,
+#cat-access:checked ~ .cards .cheat-card.access,
+#cat-idor:checked ~ .cards .cheat-card.idor,
+#cat-auth:checked ~ .cards .cheat-card.auth,
+#cat-misconfig:checked ~ .cards .cheat-card.misconfig,
+#cat-traversal:checked ~ .cards .cheat-card.traversal,
+#cat-ssrf:checked ~ .cards .cheat-card.ssrf,
+#cat-upload:checked ~ .cards .cheat-card.upload,
+#cat-cmdi:checked ~ .cards .cheat-card.cmdi {
+  display: block;
+}
+
+.cheat-card {
+  margin-bottom: 22px;
+  padding: 22px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.cheat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+}
+
+.cheat-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.cheat-card h3 {
+  margin-top: 1.4rem;
+  font-size: 15px;
+}
+
+.cheat-card h3::before {
+  content: "$ ";
+  color: var(--green);
+}
+
+.example p {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.two-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.source {
+  margin-top: 1.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--border);
+  font-size: 12.5px;
+}
+
+/* ---------- Tables (Lessons 21-22) ---------- */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+}
+
+caption {
+  padding: 0 0 10px;
+  text-align: left;
+  color: var(--muted);
+}
+
+th {
+  text-align: left;
+  color: var(--green);
+  border-bottom: 1px dashed var(--green);
+  padding: 6px 10px;
+}
+
+td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* subtle zebra striping (Lesson 22: nth-child) */
+tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+tbody tr:hover {
+  background: var(--green-faint);
+}
+
+tfoot td {
+  color: var(--muted);
+  font-size: 12.5px;
+  border-bottom: 0;
+}
+
+/* ---------- Forms (Lessons 23-24) ---------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 640px;
+}
+
+fieldset {
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+legend {
+  padding: 0 8px;
+  color: var(--green);
+}
+
+legend::before {
+  content: "# ";
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.form-row {
+  display: flex;
+  gap: 18px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+label {
+  color: var(--fg);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+select,
+textarea {
+  padding: 9px 11px;
+  background: #000;
+  border: 1px solid var(--green-soft);
+  border-radius: 2px;
+  color: var(--fg);
+  font-family: "JetBrains Mono", Monaco, Consolas, monospace;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--green);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid var(--green);
+}
+
+input:not(:placeholder-shown):valid,
+textarea:not(:placeholder-shown):valid {
+  border-color: var(--green);
+}
+
+input:not(:placeholder-shown):invalid,
+textarea:not(:placeholder-shown):invalid {
+  border-color: var(--red);
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green);
+}
+
+input:checked + label {
+  color: var(--green);
+}
+
+/* ---------- Lab cards ---------- */
+.lab-card .lab-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.lab-card h4 {
+  margin: 0.8rem 0 0.3rem;
+  color: var(--fg);
+  text-transform: none;
+}
+
+.lab-card .btn {
+  margin-top: auto;
+  text-align: center;
+}
+
+/* ---------- Roadmap ---------- */
+.roadmap {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.roadmap > li::before {
+  content: none;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 26px;
+  padding: 24px 0;
+  border-top: 1px dashed var(--border);
+}
+
+.stage-label {
+  color: var(--green);
+}
+
+.stage-label::before {
+  content: "> ";
+}
+
+.stage h3 {
+  margin-bottom: 0.5rem;
+}
+
+.stage ul {
+  columns: 2;
+  color: var(--muted);
+}
+
+.resource-card dl {
+  margin: 0 0 1rem;
+}
+
+.resource-card dt {
+  color: var(--green);
+  font-size: 13px;
+}
+
+.resource-card dd {
+  margin: 0 0 0.7rem;
+  color: var(--muted);
+}
+
+/* ---------- Footer (inside content) ---------- */
+.site-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--green-soft);
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.site-footer p {
+  margin: 0 0 0.4rem;
+}
+
+/* ---------- Scrollbars (theme detail) ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4d4d4d;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::selection {
+  background: rgba(181, 232, 83, 0.3);
+  color: #fff;
+}
+
+/* ===========================================================
+   Responsive design (Lesson 18: media queries)
+   =========================================================== */
+
+/* tablets / small laptops */
+@media screen and (max-width: 1200px) {
+  .card-grid.four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* stack the sidebar on top (the theme's own breakpoint) */
+@media screen and (max-width: 960px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px dashed var(--green);
+    padding: 18px 20px;
+  }
+
+  .site-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    margin-bottom: 14px;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 24px 22px 50px;
+  }
+
+  .hero-inner,
+  .split,
+  .two-lists {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lesson-toc ol {
+    columns: 1;
+  }
+}
+
+/* phones */
+@media screen and (max-width: 600px) {
+  h1,
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 19px;
+  }
+
+  .content {
+    padding: 20px 16px 40px;
+  }
+
+  .card-grid,
+  .card-grid.two,
+  .card-grid.four,
+  .form-row {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .stage {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .stage ul {
+    columns: 1;
+  }
+
+  .diagram {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .diagram .arrow {
+    transform: rotate(90deg);
+=======
 body {
   margin: 0;
   background-image:
@@ -619,5 +1809,6 @@ code {
   }
   section {
     padding: 3rem 0;
+>>>>>>> origin/main
   }
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Injection Login | WebPentest101 Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="lab-top">
+  <div class="wrap">
+    <span class="tag">WebPentest101 / Lab 01</span>
+    <span class="mode vuln" id="mode-badge">VULNERABLE MODE</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>SQL Injection Login</h1>
+  <p class="muted">Difficulty: Beginner &middot; Goal: log in as the admin without knowing the password.</p>
+
+  <p>This login form builds an SQL query by joining your input into a text string.
+  Because of that, the right input can change the query and log you in without a
+  real password.</p>
+
+  <div class="box">
+    <div class="row">
+      <strong>Login</strong>
+      <button class="ghost" id="toggle" type="button" onclick="toggleMode()">Switch to fixed version</button>
+    </div>
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="try: admin">
+    <label for="password">Password</label>
+    <input type="text" id="password" placeholder="any password">
+    <button type="button" onclick="doLogin()">Log in</button>
+
+    <p class="muted" style="margin-top:16px">The query that will run:</p>
+    <pre><code id="query">(type something to see the query)</code></pre>
+    <div class="output" id="out"></div>
+  </div>
+
+  <details>
+    <summary>Need a hint?</summary>
+    <p>In SQL, a single quote <code>'</code> ends a piece of text, and <code>--</code>
+    starts a comment (the rest of the line is ignored). What if the username itself
+    contained a quote and an always-true condition?</p>
+  </details>
+  <details>
+    <summary>Show the solution</summary>
+    <p>Put this in the <strong>username</strong> box and type anything as the password:</p>
+    <pre><code>' OR '1'='1' --</code></pre>
+    <p>The query becomes <code>... WHERE username='' OR '1'='1' --' AND password='...'</code>.
+    <code>'1'='1'</code> is always true and <code>--</code> comments out the password
+    check, so the database returns the first user (admin).</p>
+    <p>Now switch to the fixed version and try the same input. The fixed login does not
+    build a query from text at all, so the injection does nothing.</p>
+  </details>
+
+  <h2>How this lab is built</h2>
+  <p class="muted">Open <code>app.js</code> to see how it works. The "database" or
+  "server" is just a small JavaScript object, and the vulnerable and fixed versions
+  are two separate functions so you can compare them.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

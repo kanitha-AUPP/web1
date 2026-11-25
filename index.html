@@ -1,6 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | WebPentest101</title>
+  <link rel="icon" href="images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a class="current" href="index.html">home</a>
+        <a href="learning.html">learning</a>
+        <a href="cheatsheet.html">cheatsheet</a>
+        <a href="lab.html">lab</a>
+        <a href="roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="fade-in">
+          <h1>Learn how websites get broken, <span>so you can help fix them.</span></h1>
+          <p class="lead">WebPentest101 is a free, beginner-friendly guide to web application penetration testing. It is made for beginners and anyone who is curious about cybersecurity but does not know where to start.</p>
+          <div class="button-row">
+            <a class="btn" href="learning.html">Start Learning</a>
+            <a class="btn btn-outline" href="roadmap.html">See the Roadmap</a>
+          </div>
+        </div>
+
+        <div class="terminal fade-in">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <pre><span class="comment"># A login form builds this SQL query:</span>
+                SELECT * FROM users
+                WHERE username = '<span class="prompt">INPUT</span>'
+
+                <span class="comment"># If INPUT is not handled safely,
+                # the visitor can change the query itself.
+                # That is SQL injection - lesson 01.</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- What is web app pentesting -->
+    <section class="section-alt">
+      <div class="container split">
+        <div>
+          <h2>What is Web Application Penetration Testing?</h2>
+          <p>A <strong>web application penetration test</strong> is an <em>authorised</em>, simulated attack on a website. The tester looks for weaknesses the same way a real attacker would, and then writes a report so the owners can fix the problems before someone abuses them.</p>
+          <p>It usually follows five steps:</p>
+          <ol>
+            <li><strong>Planning and scope</strong> - agree in writing what may be tested.</li>
+            <li><strong>Reconnaissance</strong> - learn how the website works.</li>
+            <li><strong>Scanning</strong> - look for possible weaknesses.</li>
+            <li><strong>Exploitation</strong> - safely prove that a weakness is real.</li>
+            <li><strong>Reporting</strong> - explain the problem and how to fix it.</li>
+          </ol>
+        </div>
+
+        <!-- Multimedia element: YouTube video --> 
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/JbzbWDVDqFo" title="ALL of Web Hacking in 7 Minutes - CyberFlow" allowfullscreen></iframe>
+          <p class="small muted">Video: "ALL of Web Hacking in 7 Minutes" by CyberFlow (YouTube).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why learn -->
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Why should beginners learn web security?</h2>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Websites are everywhere</h3>
+            <p>Banking, shopping, school portals and social media all run as web applications. One small mistake can expose thousands of users.</p>
+          </article>
+          <article class="card">
+            <h3>Better developers</h3>
+            <p>When you know how attacks work, you write safer code from the start instead of fixing problems later.</p>
+          </article>
+          <article class="card">
+            <h3>A growing career</h3>
+            <p>Security testers, bug bounty hunters and secure developers are in demand, and web security is a common first step.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick navigation -->
+    <section class="section-alt">
+      <div class="container">
+        <div class="section-title">
+          <h2>Explore WebPentest101</h2>
+          <p>Follow the sections in order, or jump straight to what you need.</p>
+      </div>
+        <div class="card-grid four">
+          <a class="card" href="learning.html">
+            <p class="card-number">01</p>
+            <h3>Learning</h3>
+            <p>10 lessons on the most common web vulnerabilities, written in plain English.</p>
+            <span class="card-link">Read the lessons &rarr;</span>
+          </a>
+          <a class="card" href="cheatsheet.html">
+            <p class="card-number">02</p>
+            <h3>Cheatsheet</h3>
+            <p>Searchable testing examples from PayloadsAllTheThings, each one explained.</p>
+            <span class="card-link">Open the cheatsheet &rarr;</span>
+          </a>
+          <a class="card" href="lab.html">
+            <p class="card-number">03</p>
+            <h3>Lab</h3>
+            <p>Practice labs to download and run on your own computer, plus a quick quiz.</p>
+            <span class="card-link">Go to the labs &rarr;</span>
+          </a>
+          <a class="card" href="roadmap.html">
+            <p class="card-number">04</p>
+            <h3>Roadmap</h3>
+            <p>A four-stage study plan and the best free platforms to keep learning.</p>
+            <span class="card-link">View the roadmap &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About + contact form -->
+    <section id="contact">
+      <div class="container split">
+        <div>
+          <p>About us</p>
+          <h2>The team</h2>
+          <ul>
+            <li>Harry Vuthy: <b>Project Lead</b></li>
+            <li>SovanKanitha Sem: <b>Product and Research Lead</b></li>
+            <li>Sokeng Yom: <b>Technical Manager</b></li>
+          </ul>
+          <p>Found a mistake or have an idea for a new lesson? Send us a message using the form.</p>
+        </div>
+        <form id="contact-form">
+          <fieldset>
+            <legend>Your details</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" maxlength="50" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="off" required>
+              </div>
+            </div>
+            <p>I am a:</p>
+            <div class="choice">
+              <input type="radio" id="role-student" name="role" value="student" checked>
+              <label for="role-student">Student</label>
+            </div>
+            <div class="choice">
+              <input type="radio" id="role-other" name="role" value="other">
+              <label for="role-other">Other</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Your message</legend>
+            <div class="form-group">
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic">
+                <option value="mistake">Report a mistake</option>
+                <option value="lesson">Suggest a new lesson</option>
+                <option value="lab">Question about a lab</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+            </div>
+            <div class="choice">
+              <input type="checkbox" id="agree" name="agree" required>
+              <label for="agree"> I agree to receive promotional content by email.</label>
+            </div>
+          </fieldset>
+
+          <div>
+            <button class="btn" type="submit">Send message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+  </footer>
+    </main>
+  </div>
+  <script src="js/theme.js"></script>
+</body>
+</html>
+=======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home | WebPenTest 101</title>
@@ -70,3 +279,4 @@
   <p>Only test systems you own or have written permission to test.</p>
 </div></footer>
 </body></html>
+>>>>>>> origin/main

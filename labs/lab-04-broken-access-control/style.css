@@ -1,0 +1,97 @@
+/* Shared styles for the practice lab.
+   Design: the "Hacker Plus" theme (green #b5e853 on near-black, monospace),
+   to match the WebPentest101 website. Plain CSS. */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "JetBrains Mono", Consolas, "Lucida Console", monospace;
+  background-color: #151515;
+  color: #eaeaea;
+  line-height: 1.6;
+  font-size: 15px;
+}
+.wrap { width: 90%; max-width: 820px; margin: 0 auto; padding: 30px 0 60px; }
+header.lab-top {
+  background-color: #000;
+  border-bottom: 1px dashed #b5e853;
+  padding: 16px 0;
+}
+header.lab-top .wrap { padding: 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.tag { color: #b5e853; font-weight: bold; }
+.tag::before { content: "./"; }
+h1 { font-size: 1.7rem; margin: 0.6em 0 0.2em; color: #b5e853; border-bottom: 1px dashed #b5e853; padding-bottom: 0.3em; }
+h2 { font-size: 1.2rem; margin-top: 1.8em; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 0.8em; color: #b5e853; }
+a { color: #63c0f5; }
+code { background-color: rgba(0,0,0,0.9); color: #aa759f; padding: 0 3px; border: 1px solid rgba(255,255,255,0.15); border-radius: 2px; }
+pre { background-color: rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.15); border-radius: 2px; padding: 14px; overflow-x: auto; color: #b5e853; }
+pre code { background: none; color: #b5e853; padding: 0; border: 0; }
+.banner {
+  background-color: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-left: 3px solid #f4bf75;
+  border-radius: 2px;
+  padding: 14px 18px;
+  margin: 20px 0;
+}
+.banner::before { content: "[!] "; color: #f4bf75; font-weight: bold; }
+.box {
+  background-color: #000;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 2px;
+  padding: 24px;
+  margin: 20px 0;
+}
+label { display: block; margin: 12px 0 4px; font-weight: bold; }
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #000;
+  border: 1px solid rgba(180,232,83,0.52);
+  border-radius: 2px;
+  color: #eaeaea;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 1rem;
+}
+input:focus { outline: none; border: 2px solid #b5e853; }
+button {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border: 1px solid rgba(180,232,83,0.52);
+  border-radius: 2px;
+  background: linear-gradient(to bottom, rgba(40,40,40,0.3), rgba(0,0,0,0.3));
+  color: #b5e853;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+button::before { content: "$ "; }
+button:hover { border-color: #b5e853; background: linear-gradient(to bottom, rgba(40,40,40,0.6), rgba(0,0,0,0.85)); }
+button.ghost { background: none; color: #eaeaea; }
+button.ghost::before { content: ""; }
+button.ghost:hover { border-color: #b5e853; }
+.mode {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid;
+}
+.mode.vuln { color: #ac4142; border-color: #ac4142; }
+.mode.safe { color: #b5e853; border-color: #b5e853; }
+.output {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 2px;
+  white-space: pre-wrap;
+  min-height: 24px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background-color: rgba(0,0,0,0.9);
+}
+.output.good { border-color: #b5e853; color: #b5e853; }
+.output.bad { border-color: #ac4142; color: #e08a8a; }
+.muted { color: #888; }
+details { margin-top: 12px; }
+summary { cursor: pointer; color: #b5e853; font-weight: bold; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }

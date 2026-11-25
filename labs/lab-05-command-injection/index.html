@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Injection Ping Tool | WebPentest101 Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="lab-top">
+  <div class="wrap">
+    <span class="tag">WebPentest101 / Lab 05</span>
+    <span class="mode vuln" id="mode-badge">VULNERABLE MODE</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Command Injection Ping Tool</h1>
+  <p class="muted">Difficulty: Intermediate &middot; Goal: run an extra command through the ping tool.</p>
+
+  <p>This "network tool" pings an address you type. In the vulnerable version it builds
+  a system command by joining your input into a string, so extra commands can be added.</p>
+
+  <div class="box">
+    <div class="row">
+      <strong>Ping tool</strong>
+      <button class="ghost" id="toggle" type="button" onclick="toggleMode()">Switch to fixed version</button>
+    </div>
+    <label for="host">Address to ping</label>
+    <input type="text" id="host" value="8.8.8.8">
+    <button type="button" onclick="runPing()">Run ping</button>
+
+    <p class="muted" style="margin-top:16px">Command that will run:</p>
+    <pre><code id="cmd">ping -c 4 8.8.8.8</code></pre>
+    <div class="output" id="out"></div>
+  </div>
+
+  <details>
+    <summary>Need a hint?</summary>
+    <p>In a shell, a semicolon <code>;</code> separates two commands. What if your input
+    contained a semicolon and a second command after it?</p>
+  </details>
+  <details>
+    <summary>Show the solution</summary>
+    <p>Put this in the address box and run it:</p>
+    <pre><code>8.8.8.8; cat /etc/passwd</code></pre>
+    <p>The command becomes <code>ping -c 4 8.8.8.8; cat /etc/passwd</code>. The ping runs,
+    then the second command prints a system file. (Here it is a pretend file - on a real
+    server this would be the real one.)</p>
+    <p>Switch to the fixed version and try the same input. It checks that the address is
+    a valid host and refuses anything else.</p>
+  </details>
+
+  <h2>How this lab is built</h2>
+  <p class="muted">Open <code>app.js</code> to see how it works. The "database" or
+  "server" is just a small JavaScript object, and the vulnerable and fixed versions
+  are two separate functions so you can compare them.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

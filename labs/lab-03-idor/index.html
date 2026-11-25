@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDOR Order Viewer | WebPentest101 Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="lab-top">
+  <div class="wrap">
+    <span class="tag">WebPentest101 / Lab 03</span>
+    <span class="mode vuln" id="mode-badge">VULNERABLE MODE</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>IDOR Order Viewer</h1>
+  <p class="muted">Difficulty: Easy &middot; Goal: read another customer's order by changing the ID.</p>
+
+  <p>You are logged in as <strong>you</strong>, and your own order is number
+  <strong>1</strong>. The page loads an order by its ID number. In the vulnerable
+  version it never checks who owns the order.</p>
+
+  <div class="box">
+    <div class="row">
+      <strong>My order</strong>
+      <button class="ghost" id="toggle" type="button" onclick="toggleMode()">Switch to fixed version</button>
+    </div>
+    <label for="oid">Order ID (this is like the number in the address bar)</label>
+    <input type="text" id="oid" value="1">
+    <button type="button" onclick="viewOrder()">View order</button>
+    <div class="output" id="out"></div>
+  </div>
+
+  <details>
+    <summary>Need a hint?</summary>
+    <p>Your order is number 1. Other customers have orders too. What happens if you ask
+    for order number 2 or 3?</p>
+  </details>
+  <details>
+    <summary>Show the solution</summary>
+    <p>Change the Order ID to <code>2</code> (or <code>3</code>) and click View order.
+    You can see another customer's order, even though it is not yours. That is an
+    <strong>Insecure Direct Object Reference (IDOR)</strong>.</p>
+    <p>Switch to the fixed version and try ID 2 again. Now the server checks the owner
+    and refuses.</p>
+  </details>
+
+  <h2>How this lab is built</h2>
+  <p class="muted">Open <code>app.js</code> to see how it works. The "database" or
+  "server" is just a small JavaScript object, and the vulnerable and fixed versions
+  are two separate functions so you can compare them.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

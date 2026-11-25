@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Misconfiguration | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 06</p>
+        <p>Lesson 06</p>
+        <h1>Security Misconfiguration</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is Security Misconfiguration?</h2>
+            <p><strong>Security misconfiguration</strong> means the code may be fine, but the server, framework or cloud service is set up in an unsafe way.</p>
+            <p>Examples include default passwords, admin panels open to the internet, detailed error pages and unsafe CORS settings.</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>Software often comes with default settings that make setup easy but are not safe. If developers forget to change them before going live, attackers can use well-known defaults that are listed online.</p>
+            <div class="diagram">
+              <div class="step"><strong>Attacker</strong>visits /admin</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Admin panel</strong>still uses admin / admin</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Attacker</strong>controls the website</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>Default passwords are public, so they are the first thing attackers try.</li>
+              <li>Error pages can reveal file paths, versions and code.</li>
+              <li>Exposed admin tools can give full control of the server.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>PayloadsAllTheThings describes admin panels "exposed via predictable URLs" with default credentials such as <code>admin/admin</code>. A tester may check addresses like:</p>
+            <div class="code-box">
+              <pre><code>https://example.com/admin</code></pre>
+            </div>
+            <p>Another misconfiguration is CORS that trusts any website. PayloadsAllTheThings shows a server copying the <code>Origin</code> header back into its response:</p>
+            <div class="code-box">
+              <pre><code>Origin: https://evil.com
+
+Access-Control-Allow-Origin: https://evil.com
+Access-Control-Allow-Credentials: true</code></pre>
+            </div>
+            <p>Because the server allows <code>https://evil.com</code> with credentials, a script on that website could read the logged-in user's private data from the API.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#misconfig">Security Misconfiguration on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Look for admin, login and debug pages at common addresses.</li>
+              <li>Trigger an error (for example, a wrong URL) and read the error page.</li>
+              <li>Check response headers for software versions and security headers.</li>
+              <li>Send a request with <code>Origin: https://evil.com</code> and see if it comes back.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Not changing default usernames and passwords.</li>
+              <li>Leaving debug mode on in production.</li>
+              <li>Copying CORS settings that allow every origin.</li>
+              <li>Leaving unused pages, sample files and services online.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Change all default passwords before going live.</li>
+              <li>Turn off debug mode and show simple error pages.</li>
+              <li>Only allow trusted origins in CORS.</li>
+              <li>Remove features you do not use, and review settings regularly.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP Top 10 - A05 Security Misconfiguration</a></li>
+              <li><a href="https://portswigger.net/web-security/cors">PortSwigger Academy - CORS</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Management%20Interface">PayloadsAllTheThings - Insecure Management Interface</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="authentication.html">&larr; 05. Authentication</a>
+            <a href="path-traversal.html">07. Path Traversal &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

@@ -1,6 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning | WebPentest101</title>
+  <link rel="icon" href="images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="index.html">home</a>
+        <a class="current" href="learning.html">learning</a>
+        <a href="cheatsheet.html">cheatsheet</a>
+        <a href="lab.html">lab</a>
+        <a href="roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+
+
+    <div class="page-header">
+      <div class="container">
+        <p>Section 01</p>
+        <h1>Learning</h1>
+        <p class="lead">Ten lessons on the web vulnerabilities you will meet most often. Each lesson explains what the problem is, how it works, how testers find it and how developers prevent it.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Before you start</h2>
+          <p>Every lesson follows the same structure, so you always know where to find things:</p>
+        </div>
+        <ol>
+          <li>What is this vulnerability?</li>
+          <li>How does it work?</li>
+          <li>Why is it dangerous?</li>
+          <li>A simple technical example</li>
+          <li>How to identify it during authorised testing</li>
+          <li>Common developer mistakes</li>
+          <li>How to prevent it</li>
+          <li>Related learning resources</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="section-title">
+          <h2>The 10 lessons</h2>
+          <p>We suggest following them in order. Lessons 1-2 are about injecting code, 3-5 are about who is allowed to do what, and 6-10 are about the server itself.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="learning/sql-injection.html">
+            <p class="card-number">01</p>
+            <h3>SQL Injection (SQLi)</h3>
+            <p>When user input changes a database query.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/xss.html">
+            <p class="card-number">02</p>
+            <h3>Cross-Site Scripting (XSS)</h3>
+            <p>When a website runs an attacker's JavaScript in other people's browsers.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/broken-access-control.html">
+            <p class="card-number">03</p>
+            <h3>Broken Access Control</h3>
+            <p>When users can do things they are not allowed to do.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/idor.html">
+            <p class="card-number">04</p>
+            <h3>IDOR</h3>
+            <p>When changing an ID in the URL shows someone else's data.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/authentication.html">
+            <p class="card-number">05</p>
+            <h3>Authentication Vulnerabilities</h3>
+            <p>Weak logins, password resets and sessions.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/security-misconfiguration.html">
+            <p class="card-number">06</p>
+            <h3>Security Misconfiguration</h3>
+            <p>Default passwords, open admin pages and unsafe settings.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/path-traversal.html">
+            <p class="card-number">07</p>
+            <h3>Path Traversal</h3>
+            <p>Using <code>../</code> to read files outside the intended folder.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/ssrf.html">
+            <p class="card-number">08</p>
+            <h3>Server-Side Request Forgery</h3>
+            <p>Tricking the server into visiting a URL for you.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/file-upload.html">
+            <p class="card-number">09</p>
+            <h3>File Upload Vulnerabilities</h3>
+            <p>When an upload form accepts dangerous files.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+          <a class="card" href="learning/command-injection.html">
+            <p class="card-number">10</p>
+            <h3>Command Injection</h3>
+            <p>When user input becomes an operating system command.</p>
+            <span class="card-link">Start lesson &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+  </footer>
+    </main>
+  </div>
+  <script src="js/theme.js"></script>
+</body>
+</html>
+=======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learn | WebPenTest 101</title>
@@ -78,3 +214,4 @@
   <p>Only test systems you own or have written permission to test.</p>
 </div></footer>
 </body></html>
+>>>>>>> origin/main

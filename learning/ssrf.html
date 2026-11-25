@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSRF | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 08</p>
+        <p>Lesson 08</p>
+        <h1>Server-Side Request Forgery (SSRF)</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is SSRF?</h2>
+            <p>Some features ask the server to fetch a URL, for example "import image from URL" or "preview this link".</p>
+            <p><strong>Server-side request forgery (SSRF)</strong> happens when the attacker chooses that URL and makes the server visit places it should not, such as internal systems that are hidden from the internet.</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>The server is usually inside a private network, so it can reach addresses the attacker cannot reach directly. By sending it a special URL, the attacker uses the server as a messenger into that private network.</p>
+            <div class="diagram">
+              <div class="step"><strong>Attacker</strong>sends an internal URL</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Web server</strong>fetches the URL for them</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Internal service</strong>returns private data</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>Attackers can reach internal admin pages and services.</li>
+              <li>In the cloud, they can read metadata that may contain secret keys.</li>
+              <li>They can scan the internal network through the server.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>PayloadsAllTheThings shows a server that fetches any URL the user gives it:</p>
+            <div class="code-box">
+              <pre><code>url = input(&quot;Enter URL:&quot;)
+response = requests.get(url)
+return response</code></pre>
+            </div>
+            <p>An attacker supplies the address of the cloud metadata service:</p>
+            <div class="code-box">
+              <pre><code>http://169.254.169.254/latest/meta-data/</code></pre>
+            </div>
+            <p><code>169.254.169.254</code> is a special address that only works from inside a cloud server (AWS EC2 in this example). The page it returns can include sensitive information about the server.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#ssrf">SSRF on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Look for features that take a URL: image import, webhooks, PDF generators, link previews.</li>
+              <li>On an authorised lab, give the feature an address you control and check if the server visits it.</li>
+              <li>Try <code>http://127.0.0.1</code> or <code>http://localhost</code> to see if internal pages are reachable.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Fetching any URL the user sends.</li>
+              <li>Using a block list that misses other ways of writing an address (PayloadsAllTheThings lists many, like <code>http://2130706433/</code> for 127.0.0.1).</li>
+              <li>Following redirects to internal addresses.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Only allow a fixed list of trusted domains.</li>
+              <li>Block private and internal IP ranges after the address is resolved.</li>
+              <li>Turn off redirects, and allow only <code>http</code> and <code>https</code>.</li>
+              <li>Protect cloud metadata (for example, AWS IMDSv2).</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/ssrf">PortSwigger Academy - SSRF</a></li>
+              <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html">OWASP - SSRF Prevention Cheat Sheet</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery">PayloadsAllTheThings - Server Side Request Forgery</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="path-traversal.html">&larr; 07. Path Traversal</a>
+            <a href="file-upload.html">09. File Upload &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

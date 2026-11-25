@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XSS | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 02</p>
+        <p>Lesson 02</p>
+        <h1>Cross-Site Scripting (XSS)</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is XSS?</h2>
+            <p><strong>Cross-site scripting (XSS)</strong> happens when a website shows user input on a page without making it safe first. If the input contains HTML or JavaScript, the browser runs it as part of the page.</p>
+            <p>There are three main types: <strong>reflected</strong> (the input comes back in the response straight away), <strong>stored</strong> (the input is saved, for example in a comment, and shown to every visitor) and <strong>DOM-based</strong> (the page's own JavaScript writes the input into the page).</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>The attacker puts a script into a comment, a search box or a URL. The website places that text inside its HTML. Every visitor who opens the page now runs the attacker's script in their own browser.</p>
+            <div class="diagram">
+              <div class="step"><strong>Attacker</strong>posts a comment containing a script</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Website</strong>saves it and shows it on the page</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Victim's browser</strong>runs the script</div>
+            </div>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/L5l9lSnNMxg" title="Cracking Websites with Cross Site Scripting - Computerphile" allowfullscreen></iframe>
+              <p class="small muted">Video: "Cracking Websites with Cross Site Scripting" by Computerphile (YouTube).</p>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>The script runs as if it were part of the trusted website.</li>
+              <li>It can steal session cookies and take over accounts.</li>
+              <li>It can change what the page shows, for example a fake login form.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>A search page shows: <em>You searched for: INPUT</em>. The server writes the input straight into the HTML. A basic test string from PayloadsAllTheThings is:</p>
+            <div class="code-box">
+              <pre><code>&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</code></pre>
+            </div>
+            <p>If the page shows a pop-up box, the browser ran the input as JavaScript. Another common test uses an image that fails to load:</p>
+            <div class="code-box">
+              <pre><code>&lt;img src=x onerror=alert(&#x27;XSS&#x27;);&gt;</code></pre>
+            </div>
+            <p><code>src=x</code> is not a real image, so the browser fires the <code>onerror</code> event and runs the JavaScript inside it. This works even when <code>&lt;script&gt;</code> tags are blocked.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#xss">XSS on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Find every place where your input appears again on the page (search results, profile names, comments).</li>
+              <li>Enter a harmless unique word first, then check where it appears in the page source.</li>
+              <li>Check whether characters like <code>&lt; &gt; " '</code> come back unchanged.</li>
+              <li>PayloadsAllTheThings suggests <code>alert(document.domain)</code> instead of <code>alert(1)</code> so you know which website the script ran on.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Using <code>innerHTML</code> with user input instead of <code>textContent</code>.</li>
+              <li>Trying to block only the word <code>&lt;script&gt;</code>.</li>
+              <li>Trusting data that was stored in the database earlier.</li>
+              <li>Forgetting that URLs and attributes need encoding too.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li><strong>Encode output</strong>: turn <code>&lt;</code> into <code>&amp;lt;</code> and so on, so the browser shows the text instead of running it.</li>
+              <li>In JavaScript, use <code>textContent</code> to insert user text.</li>
+              <li>Add a Content Security Policy (CSP) header to limit which scripts can run.</li>
+              <li>Mark session cookies as <code>HttpOnly</code> so scripts cannot read them.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/cross-site-scripting">PortSwigger Academy - Cross-site scripting</a></li>
+              <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">OWASP - XSS Prevention Cheat Sheet</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection">PayloadsAllTheThings - XSS Injection</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="sql-injection.html">&larr; 01. SQL Injection</a>
+            <a href="broken-access-control.html">03. Broken Access Control &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

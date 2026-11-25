@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab | WebPentest101</title>
+  <link rel="icon" href="images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="index.html">home</a>
+        <a href="learning.html">learning</a>
+        <a href="cheatsheet.html">cheatsheet</a>
+        <a class="current" href="lab.html">lab</a>
+        <a href="roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+
+
+    <div class="page-header">
+      <div class="container">
+        <p>Section 03</p>
+        <h1>Lab</h1>
+        <p class="lead">Practice materials you can download and run on your own computer to see each vulnerability safely for yourself.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Practice labs</h2>
+          <p>Each lab is a small website with one built-in weakness. Download it, unzip it, and open <code>index.html</code> in your browser. There is nothing to install, and each lab has a <strong>Vulnerable / Fixed</strong> switch so you can see the problem and the fix.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card lab-card">
+            <div class="lab-meta">
+              <span class="card-number">Lab 01</span>
+              <span class="badge beginner">Beginner</span>
+            </div>
+            <h3>SQL Injection login</h3>
+            <p><strong>Goal:</strong> log in as the admin without knowing the password by changing the SQL query.</p>
+            <h4>What you will learn</h4>
+            <p class="muted">How untrusted input can change a database query, and why parameterised queries fix it.</p>
+            <a class="btn" href="downloads/lab-01-sql-injection.zip" download>Download lab (ZIP)</a>
+          </article>
+
+          <article class="card lab-card">
+            <div class="lab-meta">
+              <span class="card-number">Lab 02</span>
+              <span class="badge easy">Easy</span>
+            </div>
+            <h3>Reflected XSS search</h3>
+            <p><strong>Goal:</strong> make a search box run your own JavaScript.</p>
+            <h4>What you will learn</h4>
+            <p class="muted">Why output must be encoded, and how <code>textContent</code> stops a script from running.</p>
+            <a class="btn" href="downloads/lab-02-reflected-xss.zip" download>Download lab (ZIP)</a>
+          </article>
+
+          <article class="card lab-card">
+            <div class="lab-meta">
+              <span class="card-number">Lab 03</span>
+              <span class="badge easy">Easy</span>
+            </div>
+            <h3>IDOR order viewer</h3>
+            <p><strong>Goal:</strong> change an ID to view another customer's order.</p>
+            <h4>What you will learn</h4>
+            <p class="muted">Why the server must check who owns a record, not just that someone is logged in.</p>
+            <a class="btn" href="downloads/lab-03-idor.zip" download>Download lab (ZIP)</a>
+          </article>
+
+          <article class="card lab-card">
+            <div class="lab-meta">
+              <span class="card-number">Lab 04</span>
+              <span class="badge intermediate">Intermediate</span>
+            </div>
+            <h3>Broken access control</h3>
+            <p><strong>Goal:</strong> open an admin page as a normal user.</p>
+            <h4>What you will learn</h4>
+            <p class="muted">Why hiding a link is not protection, and why roles must be checked on the server.</p>
+            <a class="btn" href="downloads/lab-04-broken-access-control.zip" download>Download lab (ZIP)</a>
+          </article>
+
+          <article class="card lab-card">
+            <div class="lab-meta">
+              <span class="card-number">Lab 05</span>
+              <span class="badge intermediate">Intermediate</span>
+            </div>
+            <h3>Command injection ping tool</h3>
+            <p><strong>Goal:</strong> run an extra command through a "ping" tool.</p>
+            <h4>What you will learn</h4>
+            <p class="muted">How joining input into a system command is dangerous, and how input checks prevent it.</p>
+            <a class="btn" href="downloads/lab-05-command-injection.zip" download>Download lab (ZIP)</a>
+          </article>
+
+          <article class="card lab-card">
+            <div class="lab-meta">
+              <span class="card-number">Info</span>
+              <span class="badge beginner">Safe</span>
+            </div>
+            <h3>How the labs work</h3>
+            <p class="muted">Every lab runs only in your browser using a pretend database or server written in JavaScript. Nothing is sent over the internet, so the labs are safe to run and cannot be used against real websites.</p>
+            <a class="card-link" href="learning.html">Read the lessons first &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+  </footer>
+    </main>
+  </div>
+  <script src="js/theme.js"></script>
+</body>
+</html>

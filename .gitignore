@@ -1,0 +1,8 @@
+# Do not publish the professor's lesson PDFs or project guidelines.
+# They are her copyrighted teaching material, not part of our code.
+lesson/
+final_project/
+
+# OS / editor junk
+Thumbs.db
+.DS_Store

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Injection | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 01</p>
+        <p>Lesson 01</p>
+        <h1>SQL Injection (SQLi)</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is SQL Injection?</h2>
+            <p>Most websites store their data (users, products, orders) in a <strong>database</strong>. They talk to the database using a language called <strong>SQL</strong>.</p>
+            <p><strong>SQL injection</strong> happens when a website puts what the user typed directly into an SQL query. If the input contains SQL characters, the visitor can change the meaning of the query.</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>A login form sends the username to the server. The server glues it into a query string and sends it to the database. The database cannot tell which part was written by the developer and which part was typed by the user.</p>
+            <div class="diagram">
+              <div class="step"><strong>Visitor</strong>types input into a form</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Web server</strong>adds the input into an SQL query</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Database</strong>runs the changed query</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>Attackers can log in without a password.</li>
+              <li>They can read private data such as emails and password hashes.</li>
+              <li>In some cases they can change or delete data in the database.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>Imagine a login form. The server builds this query from the two input boxes:</p>
+            <div class="code-box">
+              <pre><code>SELECT * FROM users WHERE username = &#x27;INPUT&#x27; AND password = &#x27;INPUT&#x27;;</code></pre>
+            </div>
+            <p>PayloadsAllTheThings shows what happens when the username is <code>' OR '1'='1'--</code>. The query becomes:</p>
+            <div class="code-box">
+              <pre><code>SELECT * FROM users WHERE username = &#x27;&#x27; OR &#x27;1&#x27;=&#x27;1&#x27;--&#x27; AND password = &#x27;&#x27;;</code></pre>
+            </div>
+            <p>The <code>'</code> closes the username text, <code>OR '1'='1'</code> is always true, and <code>--</code> turns the rest of the line (the password check) into a comment. The database returns users without checking any password.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#sqli">SQL Injection on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Type a single quote <code>'</code> into a field and look for a database error message.</li>
+              <li>Compare the page for a true condition (<code>1=1</code>) and a false condition (<code>1=2</code>). Different responses are a strong sign.</li>
+              <li>Watch for long delays after time-based tests such as <code>SLEEP(5)</code>.</li>
+              <li>Tools like Burp Suite and sqlmap can help, but only on authorised targets.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Building queries by joining strings with user input.</li>
+              <li>Showing full database error messages to visitors.</li>
+              <li>Only checking input with JavaScript in the browser (it can be skipped).</li>
+              <li>Giving the website's database account more permissions than it needs.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Use <strong>parameterised queries</strong> (prepared statements). The input is sent separately from the query, so it can never change the SQL.</li>
+              <li>Validate input on the server (for example, an ID must be a number).</li>
+              <li>Show a general error page instead of database errors.</li>
+              <li>Give the database user only the permissions it needs.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/sql-injection">PortSwigger Academy - SQL injection</a></li>
+              <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html">OWASP - SQL Injection Prevention Cheat Sheet</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection">PayloadsAllTheThings - SQL Injection</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="../learning.html">&larr; All lessons</a>
+            <a href="xss.html">02. XSS &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>

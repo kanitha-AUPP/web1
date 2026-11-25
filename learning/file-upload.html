@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload | WebPentest101</title>
+  <link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="lesson">
+
+  <a class="skip" href="#main">skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <img class="logo-img" src="../images/favicon.svg?v=2" alt="WebPentest101 logo" width="40" height="40">
+      <h1 class="brand"><a href="../index.html">WebPentest101</a></h1>
+      <nav class="site-nav">
+        <a href="../index.html">home</a>
+        <a class="current" href="../learning.html">learning</a>
+        <a href="../cheatsheet.html">cheatsheet</a>
+        <a href="../lab.html">lab</a>
+        <a href="../roadmap.html">roadmap</a>
+      </nav>
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()">light mode</button>
+    </aside>
+
+    <main class="content" id="main">
+
+    <div class="page-header">
+      <div class="container">
+        <p class="breadcrumb"><a href="../learning.html">Learning</a> / Lesson 09</p>
+        <p>Lesson 09</p>
+        <h1>File Upload Vulnerabilities</h1>
+      </div>
+    </div>
+
+    <section>
+      <div class="container lesson-layout">
+
+        <aside class="lesson-toc">
+          <h2>In this lesson</h2>
+          <ol>
+            <li><a href="#what">What is it?</a></li>
+            <li><a href="#how">How does it work?</a></li>
+            <li><a href="#why">Why is it dangerous?</a></li>
+            <li><a href="#example">Example</a></li>
+            <li><a href="#identify">How to identify it</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#prevent">Prevention</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ol>
+        </aside>
+
+        <article>
+          <section id="what">
+            <h2>What is File Upload?</h2>
+            <p>Many websites let users upload files such as profile pictures or documents.</p>
+            <p>A <strong>file upload vulnerability</strong> happens when the website does not check uploads properly. An attacker can upload a file that the server runs as code, or a file that harms other users.</p>
+          </section>
+
+          <section id="how">
+            <h2>How does it work?</h2>
+            <p>If the server saves an uploaded <code>.php</code> file inside a public folder, visiting that file's URL makes the server run it. That gives the attacker a way to run their own code on the server.</p>
+            <div class="diagram">
+              <div class="step"><strong>Attacker</strong>uploads shell.php as a &quot;picture&quot;</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step"><strong>Server</strong>saves it in /uploads/</div>
+              <span class="arrow">&rarr;</span>
+              <div class="step bad"><strong>Attacker</strong>opens /uploads/shell.php</div>
+            </div>
+          </section>
+
+          <section id="why">
+            <h2>Why is it dangerous?</h2>
+            <ul>
+              <li>Running uploaded code can give full control of the server.</li>
+              <li>Uploaded HTML or SVG files can contain XSS.</li>
+              <li>Very large files can fill up the disk.</li>
+            </ul>
+          </section>
+
+          <section id="example">
+            <h2>A simple example</h2>
+            <p>A simple filter only checks the file extension. PayloadsAllTheThings lists extension tricks that may get past it:</p>
+            <div class="code-box">
+              <pre><code>.jpg.php
+.php.jpg
+.pHp
+.php%00.jpg</code></pre>
+            </div>
+            <p>Another check that is easy to fool is the <code>Content-Type</code> header, which the browser (or attacker) sends:</p>
+            <div class="code-box">
+              <pre><code>Content-Type: image/gif</code></pre>
+            </div>
+            <p>A double extension, mixed upper and lower case, or a null byte (<code>%00</code>) can confuse a weak filter. Changing <code>Content-Type</code> to <code>image/gif</code> makes a script look like an image, because the server trusts what the request says.</p>
+            <p class="small muted">More examples: <a href="../cheatsheet.html#upload">File Upload on our Cheatsheet</a>.</p>
+          </section>
+
+          <section id="identify">
+            <h2>How to identify it during authorised testing</h2>
+            <ol>
+              <li>Find every upload form, including profile pictures and document imports.</li>
+              <li>On an authorised lab, upload a harmless text file renamed with different extensions and see which are accepted.</li>
+              <li>Check where uploaded files are stored and whether they can be opened by URL.</li>
+            </ol>
+          </section>
+
+          <section id="mistakes">
+            <h2>Common mistakes developers make</h2>
+            <ul>
+              <li>Checking only the extension or only the Content-Type header.</li>
+              <li>Using a block list ("no .php") instead of an allow list.</li>
+              <li>Keeping the user's original file name.</li>
+              <li>Storing uploads in a folder where the server runs scripts.</li>
+            </ul>
+          </section>
+
+          <section id="prevent">
+            <h2>How developers can prevent it</h2>
+            <ul>
+              <li>Allow only the file types you need (for example .jpg and .png).</li>
+              <li>Rename every file to a random name chosen by the server.</li>
+              <li>Store uploads outside the web folder, or on a separate domain.</li>
+              <li>Limit the file size and check the real file content.</li>
+            </ul>
+          </section>
+
+          <section id="resources">
+            <h2>Related learning resources</h2>
+            <ul>
+              <li><a href="https://portswigger.net/web-security/file-upload">PortSwigger Academy - File upload</a></li>
+              <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html">OWASP - File Upload Cheat Sheet</a></li>
+              <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files">PayloadsAllTheThings - Upload Insecure Files</a></li>
+            </ul>
+          </section>
+
+          <nav class="lesson-nav">
+            <a href="ssrf.html">&larr; 08. SSRF</a>
+            <a href="command-injection.html">10. Command Injection &rarr;</a>
+          </nav>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>WebPentest101 | Contact: <a href="mailto:pentester@aupp.edu.kh">pentester@aupp.edu.kh</a> | Phone: <a href="tel:+855123999168">+855 123 999 168</a></p>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+  <script src="../js/theme.js"></script>
+</body>
+</html>
